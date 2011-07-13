@@ -1,0 +1,20 @@
+2011/07/13 13:58:43 [error] [exception.CException] exception 'CException' with message 'CAssetManager.basePath "/var/sites/hamtrip/www/assets" is invalid. Please make sure the directory exists and is writable by the Web server process.' in /var/sites/yii/yii-1.1.8.r3324/framework/web/CAssetManager.php:112
+Stack trace:
+#0 /var/sites/yii/yii-1.1.8.r3324/framework/web/CAssetManager.php(97): CAssetManager->setBasePath('/var/sites/hamt...')
+#1 /var/sites/yii/yii-1.1.8.r3324/framework/web/CAssetManager.php(207): CAssetManager->getBasePath()
+#2 /var/sites/yii/yii-1.1.8.r3324/framework/web/CClientScript.php(453): CAssetManager->publish('/var/sites/yii/...')
+#3 /var/sites/yii/yii-1.1.8.r3324/framework/web/CClientScript.php(490): CClientScript->getCoreScriptUrl()
+#4 /var/sites/yii/yii-1.1.8.r3324/framework/web/CClientScript.php(306): CClientScript->getPackageBaseUrl('jquery')
+#5 /var/sites/yii/yii-1.1.8.r3324/framework/web/CClientScript.php(197): CClientScript->renderCoreScripts()
+#6 /var/sites/yii/yii-1.1.8.r3324/framework/web/CController.php(343): CClientScript->render('<!DOCTYPE html ...')
+#7 /var/sites/yii/yii-1.1.8.r3324/framework/web/CController.php(785): CController->processOutput('<!DOCTYPE html ...')
+#8 /var/sites/hamtrip/protected/controllers/SiteController.php(66): CController->render('contact', Array)
+#9 /var/sites/yii/yii-1.1.8.r3324/framework/web/actions/CInlineAction.php(50): SiteController->actionContact()
+#10 /var/sites/yii/yii-1.1.8.r3324/framework/web/CController.php(300): CInlineAction->runWithParams(Array)
+#11 /var/sites/yii/yii-1.1.8.r3324/framework/web/CController.php(278): CController->runAction(Object(CInlineAction))
+#12 /var/sites/yii/yii-1.1.8.r3324/framework/web/CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /var/sites/yii/yii-1.1.8.r3324/framework/web/CWebApplication.php(277): CController->run('contact')
+#14 /var/sites/yii/yii-1.1.8.r3324/framework/web/CWebApplication.php(136): CWebApplication->runController('site/contact')
+#15 /var/sites/yii/yii-1.1.8.r3324/framework/base/CApplication.php(158): CWebApplication->processRequest()
+#16 /var/sites/hamtrip/www/index.php(13): CApplication->run()
+#17 {main} REQUEST_URI=/index.php?r=site/contact
