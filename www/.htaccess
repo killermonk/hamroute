@@ -3,3 +3,9 @@ AddHandler application/x-httpd-php5s .php
 
 # Dissallow access to .svn directories
 RedirectMatch 404 /\\.svn(/|$)
+
+IndexIgnore */*
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond ${REQUEST_FILENAME} !-d
+RewriteRule . index.php [L]
