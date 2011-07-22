@@ -1,5 +1,7 @@
 <?php
 
+require_once('constants.php');
+
 // uncomment the following to define a path alias
 Yii::setPathOfAlias('model','protected/model');
 
@@ -47,10 +49,10 @@ return array(
 			),
 		),
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=hamroute_main',
+			'connectionString' => 'mysql:host='.DB_HOST.';dbname='.DB_NAME,
 			'emulatePrepare' => true,
-			'username' => 'hamroute_main',
-			'password' => 'GEUwyLchSu0XGg92dzM4aC39jwsREj',
+			'username' => DB_USER,
+			'password' => DB_PASS,
 			'charset' => 'utf8',
 		),
 		'errorHandler'=>array(
@@ -78,6 +80,6 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-            'adminEmail'=>'webmaster@hamtrip.com',
+		'adminEmail'=>'webmaster@hamtrip.com',
 	),
 );
