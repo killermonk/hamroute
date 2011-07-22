@@ -42,6 +42,8 @@ return array(
 		),
 		'urlManager'=>array(
 			'urlFormat'=>'path',
+			'showScriptName'=>false,
+			'caseSensitive'=>false,
 			'rules'=>array(
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
@@ -57,8 +59,8 @@ return array(
 		),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
-            'errorAction'=>'site/error',
-        ),
+			'errorAction'=>'site/error',
+		),
 		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
