@@ -1,7 +1,7 @@
 <?php
 
 // uncomment the following to define a path alias
-// Yii::setPathOfAlias('local','path/to/local-folder');
+Yii::setPathOfAlias('model','protected/model');
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
@@ -14,8 +14,10 @@ return array(
 
 	// autoloading model and component classes
 	'import'=>array(
-		'application.models.*',
 		'application.components.*',
+		'model.logicModels.*',
+		'model.unitModels.*',
+		'model.dbModels.*',
 	),
 
 	'modules'=>array(
@@ -45,18 +47,12 @@ return array(
 			),
 		),
 		'db'=>array(
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-		),
-		// uncomment the following to use a MySQL database
-		/*
-		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=testdrive',
+			'connectionString' => 'mysql:host=localhost;dbname=hamroute_main',
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '',
+			'username' => 'hamroute_main',
+			'password' => 'GEUwyLchSu0XGg92dzM4aC39jwsREj',
 			'charset' => 'utf8',
 		),
-		*/
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
             'errorAction'=>'site/error',
