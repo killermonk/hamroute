@@ -193,6 +193,7 @@ ACTIONS
 
   users
     create an administrative user
+
 HELP;
 	}
 }
