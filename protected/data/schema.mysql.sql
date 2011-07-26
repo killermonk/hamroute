@@ -47,6 +47,7 @@ CREATE TABLE `repeaters` (
 	`geo_coverage` POLYGON NOT NULL COMMENT "The geographical coverage area of the repeater",
 	`import_data` BLOB default NULL COMMENT "A json-encoded blob of the original import data. This allows us to manually correct errors, etc",
 	PRIMARY KEY (`repeater_id`),
+	KEY (`band`),
 	KEY (`region_id`),
 	SPATIAL INDEX(`geo_location`),
 	SPATIAL INDEX(`geo_coverage`)

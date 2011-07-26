@@ -49,7 +49,6 @@ class ConfigureCommand extends CConsoleCommand
 		return $this->superCon;
 	}
 
-    // Yii::app()->db
 	/**
 	 * The main action. Configure everything
 	 * @param string $user - the sueper user username
@@ -161,5 +160,39 @@ class ConfigureCommand extends CConsoleCommand
 		// This allows us to skip the registration process
 
 		// TODO implement
+	}
+
+	/**
+	 * Get the actuall help text to make this command useful
+	 */
+	public function getHelp() {
+		return <<<HELP
+USAGE
+  {$this->getCommandRunner()->getScriptName()} {$this->getName()} <action> [args]
+
+DESCRIPTION
+  This command configures the application's back-end so that it will be
+  useable. It is mainly used for the initial set up, but can be used
+  multiple times in development to get a clean copy of the database, etc.
+
+ACTIONS
+  all [--user=root]
+    perform all configuration options.
+    - user : the database super user to use
+
+  database [--user=root] [--tables=true] [--users=true]
+    create and configure the database
+    - user : the database super user to use
+    - tables : true to also configure the tables
+    - users : true to also configure an administrative user
+
+  tables [--user=root] [--users=true]
+    create and configure the database tables (destroying all current data)
+    - user : the database super user to use
+    - users : true to also configure an administrative user
+
+  users
+    create an administrative user
+HELP;
 	}
 }
