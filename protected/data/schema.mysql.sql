@@ -23,24 +23,23 @@ CREATE TABLE `user_searches` (
 
 DROP TABLE IF EXISTS `repeater_regions`;
 CREATE TABLE `repeater_regions` (
-	`region_id` INTEGER UNSIGNED NOT NULL,
+	`region_id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
 	`state` VARCHAR(5),
 	`country` VARCHAR(2),
-	`location_name` VARCHAR(25),
 	`area_name` VARCHAR(25),
 	PRIMARY KEY (`region_id`),
-	KEY (`state`,`country`,`area_name`)
+	UNIQUE KEY (`state`,`country`,`area_name`)
 ) Engine=MyISAM;
 
 DROP TABLE IF EXISTS `repeaters`;
 CREATE TABLE `repeaters` (
 	`repeater_id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
 	`band` VARCHAR(5) NOT NULL,
-	`output_freq` DECIMAL(5,4) NOT NULL,
-	`input_freq` DECIMAL(5,4) NOT NULL,
-	`ctcss_in` DECIMAL(3,1) default NULL,
-	`ctcss_out` DECIMAL(3,1) default NULL,
-	`dcs_code` DECIMAL(3,2) default NULL,
+	`output_freq` DECIMAL(9,4) NOT NULL,
+	`input_freq` DECIMAL(9,4) NOT NULL,
+	`ctcss_in` DECIMAL(4,1) default NULL,
+	`ctcss_out` DECIMAL(4,1) default NULL,
+	`dcs_code` DECIMAL(5,2) default NULL,
 	`region_id` INTEGER NOT NULL COMMENT "repeater_regions.region_id foreign key",
 	`open` TINYINT(1) default 0 COMMENT "If we don't know if it's open or closed, assume it's closed",
 	`geo_location` POINT NOT NULL COMMENT "The lat/lon where the repeater is located",

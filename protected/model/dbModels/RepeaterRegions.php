@@ -7,7 +7,6 @@
  * @property string $region_id
  * @property string $state
  * @property string $country
- * @property string $location_name
  * @property string $area_name
  */
 class RepeaterRegions extends CActiveRecord
@@ -35,11 +34,9 @@ class RepeaterRegions extends CActiveRecord
 	public function rules()
 	{
 		return array(
-			array('region_id', 'required'),
-			array('region_id', 'length', 'max'=>10),
+			array('state, country', 'required'),
 			array('state', 'length', 'max'=>5),
 			array('country', 'length', 'max'=>2),
-			array('location_name, area_name', 'length', 'max'=>25),
 			// The following rule is used by search().
 			array('region_id, state, country, area_name', 'safe', 'on'=>'search'),
 		);
@@ -64,7 +61,6 @@ class RepeaterRegions extends CActiveRecord
 			'region_id' => 'Region',
 			'state' => 'State',
 			'country' => 'Country',
-			'location_name' => 'Location Name',
 			'area_name' => 'Area Name',
 		);
 	}

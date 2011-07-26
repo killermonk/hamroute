@@ -1,9 +1,7 @@
 <?php
 
 require_once('constants.php');
-
-// Define any path aliases we might want
-Yii::setPathOfAlias('model',realpath(dirname(__FILE__).'/../model'));
+require_once('paths.php');
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.

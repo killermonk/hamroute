@@ -44,8 +44,10 @@ class Repeaters extends CActiveRecord
 		return array(
 			array('band, output_freq, input_freq, region_id, geo_location, geo_coverage', 'required'),
 			array('region_id, open', 'numerical', 'integerOnly'=>true),
-			array('band, output_freq, input_freq', 'length', 'max'=>5),
-			array('ctcss_in, ctcss_out, dcs_code', 'length', 'max'=>3),
+			array('band', 'length', 'max'=>5),
+			array('output_freq, input_freq', 'length', 'max'=>10),
+			array('ctcss_in, ctcss_out', 'length', 'max'=>5),
+			array('dcs_code', 'length', 'max'=>6),
 			array('import_data', 'safe'),
 			// The following rule is used by search().
 			array('repeater_id, band, region_id, open', 'safe', 'on'=>'search'),

@@ -1,6 +1,7 @@
 <?php
 
 require_once('constants.php');
+require_once('paths.php');
 
 // Things I want
 if (!defined('STDIN'))
@@ -15,6 +16,13 @@ if (!defined('STDERR'))
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'HAM Trip Planner - Console',
+	// autoloading model and component classes
+	'import'=>array(
+		'application.components.*',
+		'model.logicModels.*',
+		'model.unitModels.*',
+		'model.dbModels.*',
+	),
 	// application components
 	'components'=>array(
 		'db'=>array(
