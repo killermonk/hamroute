@@ -131,6 +131,9 @@ class ConfigureCommand extends CConsoleCommand
 		{
 			$db = $this->getSuperUserConnection($user, Yii::app()->params['dbName']);
 
+			// Turn off our foreign key constraints
+			$db->createCommand("SET foreign_key_checks = 0")->execute();
+
 			$sql = file_get_contents($sqlFile);
 			$queries = explode(';', $sql);
 
@@ -145,6 +148,8 @@ class ConfigureCommand extends CConsoleCommand
 		{
 			fputs(STDERR, "\nUnable to configure the tables completely: {$e->getMessage()}\n");
 		}
+
+		$db->createCommand("SET foreign_key_checks = 1")->execute();
 	}
 
 	/**
