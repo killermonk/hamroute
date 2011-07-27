@@ -5,7 +5,7 @@ CREATE TABLE users (
     `password` VARCHAR(40) NOT NULL,
     `payload` BLOB NULL COMMENT "Any random data we want to store about the user",
     PRIMARY KEY (`user_id`),
-    KEY (`username`)
+    UNIQUE KEY (`username`)
 ) Engine=InnoDB;
 
 DROP TABLE IF EXISTS `user_searches`;
@@ -47,7 +47,7 @@ CREATE TABLE `repeaters` (
 	`import_data` BLOB default NULL COMMENT "A json-encoded blob of the original import data. This allows us to manually correct errors, etc",
 	PRIMARY KEY (`repeater_id`),
 	KEY (`band`),
-	KEY (`region_id`),
+	FOREIGN KEY `fk_region` (`region_id`) REFERENCES `repeater_regions` (`region_id`),
 	SPATIAL INDEX(`geo_location`),
 	SPATIAL INDEX(`geo_coverage`)
 ) Engine=MyISAM;
@@ -57,4 +57,6 @@ CREATE TABLE `repeater_links` (
 	`source_id` INTEGER UNSIGNED NOT NULL COMMENT "repeaters.repeater_id foreign key",
 	`dest_id` INTEGER UNSIGNED NOT NULL COMMENT "repeaters.repeater_id foreign key",
 	PRIMARY KEY (`source_id`, `dest_id`)
+#	FOREIGN KEY `fk_source` (`source_id`) REFERENCES `repeaters` (`repeater_id`)
+#	FOREIGN KEY `fk_dest` (`dest_id`) REFERENCES `repeaters` (`repeater_id`)
 ) Engine=MyISAM;
