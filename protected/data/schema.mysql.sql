@@ -40,14 +40,16 @@ CREATE TABLE `repeaters` (
 	`ctcss_in` DECIMAL(4,1) default NULL,
 	`ctcss_out` DECIMAL(4,1) default NULL,
 	`dcs_code` DECIMAL(5,2) default NULL,
-	`region_id` INTEGER NOT NULL COMMENT "repeater_regions.region_id foreign key",
+	`region_id` INTEGER default NULL COMMENT "repeater_regions.region_id foreign key",
 	`open` TINYINT(1) default 0 COMMENT "If we don't know if it's open or closed, assume it's closed",
 	`geo_location` POINT NOT NULL COMMENT "The lat/lon where the repeater is located",
 	`geo_coverage` POLYGON NOT NULL COMMENT "The geographical coverage area of the repeater",
 	`import_data` BLOB default NULL COMMENT "A json-encoded blob of the original import data. This allows us to manually correct errors, etc",
 	PRIMARY KEY (`repeater_id`),
 	KEY (`band`),
-	FOREIGN KEY `fk_region` (`region_id`) REFERENCES `repeater_regions` (`region_id`),
+	FOREIGN KEY `fk_region` (`region_id`) REFERENCES `repeater_regions` (`region_id`)
+		ON DELETE SET NULL
+		ON UPDATE CASCADE,
 	SPATIAL INDEX(`geo_location`),
 	SPATIAL INDEX(`geo_coverage`)
 ) Engine=MyISAM;
