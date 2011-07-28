@@ -15,43 +15,53 @@ class SpacialPolygon extends SpacialAbstract
 	 */
 	public function toWKT()
 	{
-		$wkt = 'POLYGON(( ';
+		$wkt = 'POLYGON(';
 
-		$points = $this->getPoints();
-		if (!empty($points))
+		$coordGroups = $this->getCoords();
+		if (!empty($coordGroups))
 		{
-			// TODO implement groups
-			foreach ($points as $point)
-				$wkt .= "{$point['lat']} {$point['lon']}, ";
+			foreach ($coordGroups as $coords)
+			{
+				// Append all the points
+				$coordList = array();
+				foreach ($coords as $coord)
+					$coordList[] = "{$coord['lat']} {$coord['lon']}";
 
-			$lastPoint = end($points);
-			$firstPoint = reset($points);
+				$lastCoord = end($coords);
+				$firstCoord = reset($coords);
 
-			// If the end point does not equal the start point, connect it back to itself
-			if ($firstPoint['lat'] != $lastPoint['lat'] || $firstPoint['lon'] != $lastPoint['lon'])
-				$wkt .= "{$firstPoint['lat']} {$firstPoint['lon']}";
+				// If the end coord does not equal the start coord, connect it back to itself
+				if ($firstCoord['lat'] != $lastCoord['lat'] || $firstCoord['lon'] != $lastCoord['lon'])
+					$coordList[] = "{$firstCoord['lat']} {$firstCoord['lon']}";
+
+				// Create the group
+				$groups[] = '('.implode(',', $coordList).')';
+			}
+
+			// Add the groups
+			$wkt .= implode(',', $groups);
 		}
 
-		$wkt .= ' ))';
+		$wkt .= ')';
 		return $wkt;
 	}
 
 	/**
-	 * Parse the Well-Known Binary to create the point
-	 * @param binary $binary
-	 * @param boolean $littleEndian - whether we are littleEndian or bigEndian
+	 * Add a coordinate to the polygon
 	 */
-	public function parseWKB($binary, $littleEndian)
+	public function addCoord(array $coord)
 	{
-		//<num-polys> <num-points-1> <points1..n> <num-points-2> <points1..n> .. <num-points-n> <points1..n>
-		throw new Exception("parseWKB not yet implemented: ".bin2hex($binary));
-	}
+		if (count($coord) != 3)
+			throw new Exception("Spacial Polygon coordinate requires three values. ".(count($coord))." found.");
 
-	/**
-	 * Add a point to the spacial point
-	 */
-	public function addPoint($point)
-	{
 		// lat, lon, group
+		$lat = isset($coord['lat']) ? $coord['lat'] : $coord[0];
+		$lon = isset($coord['lon']) ? $coord['lon'] : $coord[1];
+		$group = isset($coord['group']) ? $coord['group'] : $coord[2];
+
+		if (!isset($this->coords[$group]))
+			$this->coords[$group] = array();
+
+		$this->coords[$group][] = compact('lat', 'lon');
 	}
 }

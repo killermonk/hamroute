@@ -17,41 +17,26 @@ class SpacialPoint extends SpacialAbstract
 	{
 		$wkt = 'POINT(';
 
-		$points = $this->getPoints();
-		if (!empty($points))
-			$wkt .= "{$points[0]['lat']} {$points[0]['lon']}";
+		$coords = $this->getCoords();
+		if (!empty($coords))
+			$wkt .= "{$coords[0]['lat']} {$coords[0]['lon']}";
 
 		$wkt .= ')';
 		return $wkt;
 	}
 	
 	/**
-	 * Parse the Well-Known Binary to create the point
-	 * @param binary $binary
-	 * @param boolean $littleEndian - whether we are littleEndian or bigEndian
+	 * Add a coordinate to a Point
 	 */
-	public function parseWKB($binary, $littleEndian)
-	{
-		$points = unpack("d*", $binary);
-		if (count($points) != 2)
-			throw new Exception("Unable to parse WKB. Invalid number of points (" . count($points) ."). Must be exactly 2.");
-
-		// Force it to a 0-based array from its 1-based array
-		$this->addPoint(array_values($points));
-	}
-
-	/**
-	 * Add a point to the spacial point
-	 */
-	public function addPoint($point)
+	public function addCoord(array $coord)
 	{
 		if (!$this->isEmpty())
-			throw new Exception("Spacial Point can only have one point");
-		if (!is_array($point))
-			throw new Exception("Spacial Point value must be an array");
+			throw new Exception("Spacial Point can only have one coordinate");
+		if (count($coord) != 2)
+			throw new Exception("Spacial Point coordinate requires two values. ".(count($coord))." found.");
 
-		$lat = isset($point['lat']) ? $point['lat'] : $point[0];
-		$lon = isset($point['lon']) ? $point['lon'] : $point[1];
-		$this->points[] = compact('lat', 'lon');
+		$lat = isset($coord['lat']) ? $coord['lat'] : $coord[0];
+		$lon = isset($coord['lon']) ? $coord['lon'] : $coord[1];
+		$this->coords[] = compact('lat', 'lon');
 	}
 }
