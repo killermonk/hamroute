@@ -24,8 +24,9 @@ abstract class SpacialAbstract
 	/**
 	 * Parse the Well-Known Binary and insert the values into the object
 	 * @param binary $binary - just the points section of the WKB
+	 * @param boolean $littleEndian - whether we are littleEndian or bigEndian
 	 */
-	abstract function parseWKB($binary);
+	abstract function parseWKB($binary, $littleEndian);
 
 	/**
 	 * Add a point to this object

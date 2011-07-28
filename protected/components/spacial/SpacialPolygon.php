@@ -39,8 +39,9 @@ class SpacialPolygon extends SpacialAbstract
 	/**
 	 * Parse the Well-Known Binary to create the point
 	 * @param binary $binary
+	 * @param boolean $littleEndian - whether we are littleEndian or bigEndian
 	 */
-	public function parseWKB($binary)
+	public function parseWKB($binary, $littleEndian)
 	{
 		//<num-polys> <num-points-1> <points1..n> <num-points-2> <points1..n> .. <num-points-n> <points1..n>
 		throw new Exception("parseWKB not yet implemented: ".bin2hex($binary));

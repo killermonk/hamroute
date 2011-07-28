@@ -36,7 +36,7 @@ class WkbParser
 		$pointData = substr($data, 4);
 		var_dump('PointData', bin2hex($pointData));
 
-		$obj->parseWKB($pointData);
+		$obj->parseWKB($pointData, $littleEndian);
 
 		return $obj;
 	}

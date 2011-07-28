@@ -3,6 +3,7 @@ CREATE TABLE users (
     `user_id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
     `username` VARCHAR(128) NOT NULL,
     `password` VARCHAR(40) NOT NULL,
+    # last login date?
     `payload` BLOB NULL COMMENT "Any random data we want to store about the user",
     PRIMARY KEY (`user_id`),
     UNIQUE KEY (`username`)

@@ -13,7 +13,7 @@ class SpacialPoint extends SpacialAbstract
 	 * Convert to Well-Known Text format
 	 * @return string
 	 */
-    public function toWKT()
+	public function toWKT()
 	{
 		$wkt = 'POINT(';
 
@@ -28,8 +28,9 @@ class SpacialPoint extends SpacialAbstract
 	/**
 	 * Parse the Well-Known Binary to create the point
 	 * @param binary $binary
+	 * @param boolean $littleEndian - whether we are littleEndian or bigEndian
 	 */
-	public function parseWKB($binary)
+	public function parseWKB($binary, $littleEndian)
 	{
 		$points = unpack("d*", $binary);
 		if (count($points) != 2)
