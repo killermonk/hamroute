@@ -13,6 +13,12 @@ class BinaryReader
 	private $data = null;
 
 	/**
+	 * Track our offset on the data
+	 * @var integer
+	 */
+	private $offset = 0;
+
+	/**
 	 * Our flag for whether to use little/big endian (null for system default)
 	 * @var integer
 	 */
@@ -44,6 +50,14 @@ class BinaryReader
 	}
 
 	/**
+	 * Set the read to use the default system endian format
+	 */
+	public function setDefaultEndian()
+	{
+		$this->endian = null;
+	}
+
+	/**
 	 * Format the data for return to the user
 	 * @param mixed $data
 	 * @return false|array - false failure, array values
@@ -56,16 +70,31 @@ class BinaryReader
 	}
 
 	/**
+	 * Read a number of bytes from the data string and advance our internal pointer
+	 * @param integer $dataSize
+	 * @return binary
+	 */
+	protected function read($dataSize)
+	{
+		$buffer = substr($this->data, $this->offset, $dataSize);
+		// TODO detect invalid data if strlen($buffer) < $dataSize
+
+		// Advance internal offset
+		$this->offset += $dataSize;
+		return $buffer;
+	}
+
+	/**
 	 * Read a char from the binary data and remove it
 	 * @param integer $count
 	 * @return array(char)
 	 */
 	public function char($count = 1)
 	{
-		$f = 'c'.(int)$count;
-		$char = unpack($f, $this->data);
+		$buffer = $this->read($count);
 
-		$this->data = substr($this->data, 1*$count);
+		$f = 'c'.(int)$count;
+		$char = unpack($f, $buffer);
 
 		return $this->formatResults($char);
 	}
@@ -85,10 +114,11 @@ class BinaryReader
 		else
 			$f = 'L';
 
-		$f .= (int)$count;
-		$ulong = unpack($f, $this->data);
+		$bufferSize = 4*$count;
+		$buffer = $this->read($bufferSize);
 
-		$this->data = substr($this->data, 4*$count);
+		$f .= (int)$count;
+		$ulong = unpack($f, $buffer);
 		
 		return $this->formatResults($ulong);
 	}
@@ -100,10 +130,11 @@ class BinaryReader
 	 */
 	public function double($count = 1)
 	{
-		$f = 'd'.(int)$count;
-		$double = unpack($f, $this->data);
+		$bufferSize = 8*$count;
+		$buffer = $this->read($bufferSize);
 
-		$this->data = substr($this->data, 8*$count);
+		$f = 'd'.(int)$count;
+		$double = unpack($f, $buffer);
 
 		return $this->formatResults($double);
 	}
