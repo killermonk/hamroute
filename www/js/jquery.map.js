@@ -22,7 +22,7 @@
 		},
 		
 		// draw route
-		directions : function(start, end) {
+		drawRoute : function(start, end) {
 			var directionsDisplay = new google.maps.DirectionsRenderer();
 			var directionsService = new google.maps.DirectionsService();
 			var request = {
@@ -44,8 +44,25 @@
 			//alert(path);
 		},
 		
-		mark: function(id, lat, lng) {
-			var myLatlng = new google.maps.LatLng(lat, lng);
+		makeMVCArray: function(myArr) {
+			var points = new Array();
+			for (var i in myArr) {
+				var LatLngArray = methods.splitLatLng(myArr[i]);
+				points.push(new google.maps.LatLng(LatLngArray[0], LatLngArray[1]));
+			}
+			return points;
+		},
+		
+		splitLatLng: function(LatLng) {
+			var LatLngArray = LatLng.split(',');
+			var lat = LatLngArray[0];
+			var lng = LatLngArray[1];
+			return LatLngArray;
+		},
+		
+		addRepeater: function(id, LatLng, coverage) {
+			LatLng = methods.splitLatLng(LatLng);
+			var myLatlng = new google.maps.LatLng(LatLng[0], LatLng[1]);
 			var contentString = 'content';
 			var infowindow = new google.maps.InfoWindow({
 				content: contentString
@@ -55,25 +72,19 @@
 				map: map,
 				title: "title"
 			});
-			var points = new Array();
-			for (var i in myArr) {
-				var latlngArray = myArr[i].split(',');
-				var lat = latlngArray[0];
-				var lng = latlngArray[1];
-				points.push(new google.maps.LatLng(latlngArray[0], latlngArray[1]));
-			}
+			coverage = coverage.split("|");
 			polygonArray[id] = new google.maps.Polygon({
 				fillColor : 'black', 
 				fillOpacity : FILLOPACITY, 
 				map: map,
-				paths: points
+				paths: methods.makeMVCArray(coverage)
 			});
 			google.maps.event.addListener(markerArray[id], 'click', function() {
 				infowindow.open(map,markerArray[id]);
 			});
 		},
 		
-		toggle: function(id) {
+		toggleRepeater: function(id) {
 			if (markerArray[id].getVisible()) {
 				markerArray[id].setVisible(false);
 				polygonArray[id].setOptions({
@@ -88,11 +99,8 @@
 					strokeOpacity : 1
 				});
 			}
-		},
+		}
 		
-		show : function( ) {    },
-		hide : function( ) {  },
-		update : function( content ) {  }
 	};
 
 	$.fn.map = function( method ) {
