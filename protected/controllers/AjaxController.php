@@ -9,12 +9,23 @@ class AjaxController extends Controller
 	 */
 	public function actionGetRepeaters()
 	{
-		$result = Repeaters::model()->findByPk(1);
-		//$repeater['location'] = WkbParser::parse($result->geo_location)->getCoords();
-		$repeater['location'] = WkbParser::parse($result->geo_location)->getCoords();
-		$repeater['coverage'] = WkbParser::parse($result->geo_coverage)->getCoords();
-
-		echo json_encode($repeater['location']);
+		$polyLine = "GeomFromText('LINESTRING(" .str_replace('|', ',', str_replace(array('(', ')', ','), '', $_POST["polyline"])) . ")')";
+			$result = Yii::app()->db->createCommand()
+			->select('repeater_id')
+			->from('repeaters')
+			->where("MBRIntersects({$polyLine},geo_coverage)")
+			->queryAll();
+		foreach($result as $key => $repeater) {
+			$repeaterArray[] = $repeater['repeater_id'];
+		}	
+		$result = Repeaters::model()->findAllByPk($repeaterArray);
+		foreach($result as $key => $repeater) {
+			$repeaters[$key]['id'] = $key;
+			$repeaters[$key]['location'] = WkbParser::parse($repeater->geo_location)->getCoords();
+			$repeaters[$key]['coverage'] = WkbParser::parse($repeater->geo_coverage)->getCoords();
+		}
+		//echo json_encode($repeaters);
+		echo json_encode($repeaters);
 	}
 	
 	/**
