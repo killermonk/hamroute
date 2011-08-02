@@ -11,8 +11,8 @@ foreach($repeaters as $key => $repeater) {
 Yii::app()->clientScript->registerScript(
 'docready', 
 "$(document).ready(function(){
-	$('#map_canvas').map();"
-	.$content."
+	$('#map_canvas').map();
+	$('#map_canvas').map('getRepeaters');
 });", 
 CClientScript::POS_HEAD);
 

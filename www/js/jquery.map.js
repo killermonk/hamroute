@@ -21,6 +21,19 @@
 			//
 		},
 		
+		// get repeaters (ajax)
+		getRepeaters : function() {
+			$.ajax({
+				url: '/ajax/getRepeaters',
+				dataType: 'json',
+				success: function(response) {
+					// update status element
+					//$('#status').html(response);
+					alert(response[0]['lat']);
+				}
+			});
+		},
+		
 		// draw route
 		drawRoute : function(start, end) {
 			var directionsDisplay = new google.maps.DirectionsRenderer();
