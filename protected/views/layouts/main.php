@@ -46,7 +46,7 @@
 			'links'=>$this->breadcrumbs,
 		)); ?><!-- breadcrumbs -->
 	<?php endif?>
-fffffffffffffffffffffffffffffffffffffffffffffffffffff
+
 	<?php echo $content; ?>
 
 	<div id="footer">
