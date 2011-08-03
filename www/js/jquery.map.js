@@ -57,7 +57,7 @@
 			directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
 					directionsDisplay.setDirections(result);
-					// send polyLoine
+					// send polyLine
 					methods.getRepeaters(result.routes[0].overview_path);
 				}
 			});
@@ -65,13 +65,17 @@
 		
 		// get repeaters (ajax)
 		getRepeaters : function(polyLine) {
+			var path = [];
+			for (var i=0; i<polyLine.length; i++)
+				path.push(polyLine[i].toUrlValue().split(','));
+
 			// show loading
 			$(box).append('<div id="loading">Loading</div>');
 			// get repeaters
 			$.ajax({
 				url: '/ajax/getRepeaters',
 				type: "POST",
-				data: {polyline: polyLine.join('|')},
+				data: {polyline: path},
 				dataType: 'json',
 				success: function(response) {
 					// update status element
@@ -159,6 +163,7 @@
 		} 
 		else {
 			$.error( 'Method ' +  method + ' does not exist on jQuery.map' );
+			return null;
 		}    
 
 	};

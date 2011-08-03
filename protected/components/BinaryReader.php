@@ -85,6 +85,15 @@ class BinaryReader
 	}
 
 	/**
+	 * Return the current buffer, from our offset, for our binary reader
+	 * @return binary
+	 */
+	public function getBuffer()
+	{
+		return substr($this->data, $this->offset);
+	}
+
+	/**
 	 * Read a char from the binary data and remove it
 	 * @param integer $count
 	 * @return array(char)

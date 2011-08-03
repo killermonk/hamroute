@@ -9,8 +9,16 @@ class AjaxController extends Controller
 	 */
 	public function actionGetRepeaters()
 	{
-		$polyLine = "GeomFromText('LINESTRING(" .str_replace('|', ',', str_replace(array('(', ')', ','), '', $_POST["polyline"])) . ")')";
-			$result = Yii::app()->db->createCommand()
+		Yii::import('application.components.spacial.SpacialAbstract');
+		$lineObj = SpacialAbstract::createFromType(SpacialAbstract::LINE_STRING);
+
+		$coords = $_POST['polyline'];
+		foreach ($coords as $coord)
+			$lineObj->addCoord($coord);
+
+		//$polyLine = "GeomFromText('LINESTRING(" .str_replace('|', ',', str_replace(array('(', ')', ','), '', $_POST["polyline"])) . ")')";
+		$polyLine = "GeomFromText('" . $lineObj->toWKT() . "')";
+		$result = Yii::app()->db->createCommand()
 			->select('repeater_id')
 			->from('repeaters')
 			->where("MBRIntersects({$polyLine},geo_coverage)")

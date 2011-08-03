@@ -1,6 +1,6 @@
 <?php
 
-Yii::import('protected.compontents.spacial.SpacialAbstract');
+Yii::import('application.components.spacial.SpacialAbstract');
 
 /**
  * Class to handle being a spacial polygon

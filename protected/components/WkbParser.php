@@ -135,7 +135,18 @@ class WkbParser
 
 	protected function parseLineString($obj)
 	{
-		throw new Exception("Not Yet Implemented");
+		// Format: <num-points> <points1....n>
+
+		// Read the number of points in the list
+		list($numCoords) = $this->data->ulong();
+
+		$coords = $this->data->double($numCoords*2);
+		if (count($coords) != $numCoords*2)
+			throw new Exception("Unable to parse WKB for Points. Invalid number of coordinates (" . count($coords) ."). Must be exactly ".($numCoords*2));
+
+		// Add the to the line string
+		for ($i=0; $i<$numCoords*2; $i+=2)
+			$obj->addCoord(array($coords[$i], $coords[$i+1]));
 	}
 
 	/**

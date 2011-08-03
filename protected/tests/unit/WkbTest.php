@@ -23,6 +23,17 @@ class WkbTest extends CTestCase
 		$this->assertEquals($expectedWkt, $wkt, "Failed to properly parse or format");
 	}
 
+	public function testLineString()
+	{
+		$expectedWkt = 'LINESTRING(0 0,10 10,20 25,50 60)';
+		$binary = $this->hex2bin("0000000001020000000400000000000000000000000000000000000000000000000000244000000000000024400000000000003440000000000000394000000000000049400000000000004E40");
+		$obj = WkbParser::parse($binary);
+		$this->assertInstanceOf('SpacialLineString', $obj, "Returned object of wrong type");
+
+		$wkt = $obj->toWKT();
+		$this->assertEquals($expectedWkt, $wkt, "Failed to properly parse or format");
+	}
+
 	public function testPolygon()
 	{
 		// Test with multiple groups
