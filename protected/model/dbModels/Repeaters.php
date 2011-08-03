@@ -17,7 +17,7 @@
  * @property string $geo_coverage
  * @property string $import_data
  */
-class Repeaters extends CActiveRecord
+class Repeaters extends AbstractSpacialModel
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -102,5 +102,25 @@ class Repeaters extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	/**
+	 * Filter the repeaters down to only those who's coverage area is contained by the given spatial object
+	 * @param SpatialAbstract $spatial
+	 * @return Repeaters
+	 */
+	public function covers(SpatialAbstract $spatial)
+	{
+		return $this->intersects('geo_coverage', $spacial);
+	}
+
+	/**
+	 * Filter the repeaters down to only those who are located within the spatial object
+	 * @param SpatialAbstract $spatial
+	 * @return <type>
+	 */
+	public function locatedIn(SpatialAbstract $spatial)
+	{
+		return $this->intersects('geo_location', $spacial);
 	}
 }
