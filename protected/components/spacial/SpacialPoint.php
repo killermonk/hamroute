@@ -35,8 +35,8 @@ class SpacialPoint extends SpacialAbstract
 		if (count($coord) != 2)
 			throw new Exception("Spacial Point coordinate requires two values. ".(count($coord))." found.");
 
-		$lat = isset($coord['lat']) ? $coord['lat'] : $coord[0];
-		$lon = isset($coord['lon']) ? $coord['lon'] : $coord[1];
+		$lat = (double)(isset($coord['lat']) ? $coord['lat'] : $coord[0]);
+		$lon = (double)(isset($coord['lon']) ? $coord['lon'] : $coord[1]);
 		$this->coords[] = compact('lat', 'lon');
 	}
 }

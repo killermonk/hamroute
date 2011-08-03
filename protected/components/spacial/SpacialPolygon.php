@@ -55,9 +55,9 @@ class SpacialPolygon extends SpacialAbstract
 			throw new Exception("Spacial Polygon coordinate requires three values. ".(count($coord))." found.");
 
 		// lat, lon, group
-		$lat = isset($coord['lat']) ? $coord['lat'] : $coord[0];
-		$lon = isset($coord['lon']) ? $coord['lon'] : $coord[1];
-		$group = isset($coord['group']) ? $coord['group'] : $coord[2];
+		$lat = (double)(isset($coord['lat']) ? $coord['lat'] : $coord[0]);
+		$lon = (double)(isset($coord['lon']) ? $coord['lon'] : $coord[1]);
+		$group = (int)(isset($coord['group']) ? $coord['group'] : $coord[2]);
 
 		if (!isset($this->coords[$group]))
 			$this->coords[$group] = array();
