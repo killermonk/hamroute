@@ -9,8 +9,16 @@ class AjaxController extends Controller
 	 */
 	public function actionGetRepeaters()
 	{
-		Yii::import('application.components.spacial.SpacialAbstract');
-		$lineObj = SpacialAbstract::createFromType(SpacialAbstract::LINE_STRING);
+		$coords = $_POST['polyline'];
+		$logic = new SearchLogic();
+
+		$result = $logic->getRepeatersAlongRoute($coords);
+		$repeaters = array();
+
+		/*
+		 * Legacy code, left for reference
+		Yii::import('application.components.spatial.SpatialAbstract');
+		$lineObj = SpatialAbstract::createFromType(SpatialAbstract::LINE_STRING);
 
 		$coords = $_POST['polyline'];
 		foreach ($coords as $coord)
@@ -27,7 +35,10 @@ class AjaxController extends Controller
 			$repeaterArray[] = $repeater['repeater_id'];
 		}	
 		$result = Repeaters::model()->findAllByPk($repeaterArray);
-		foreach($result as $key => $repeater) {
+		 */
+
+		foreach($result as $key => $repeater)
+		{
 			$repeaters[$key]['id'] = $key;
 			$repeaters[$key]['location'] = WkbParser::parse($repeater->geo_location)->getCoords();
 			$repeaters[$key]['coverage'] = WkbParser::parse($repeater->geo_coverage)->getCoords();

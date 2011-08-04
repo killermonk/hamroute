@@ -1,13 +1,13 @@
 <?php
 
-Yii::import('application.components.spacial.SpacialAbstract');
+Yii::import('application.components.spatial.SpatialAbstract');
 
 /**
- * Class to handle being a spacial polygon
+ * Class to handle being a Spatial polygon
  *
  * @author Brian Armstrong <kf7huf@gmail.com>
  */
-class SpacialPolygon extends SpacialAbstract
+class SpatialPolygon extends SpatialAbstract
 {
 	/**
 	 * Convert to Well-Known Text format
@@ -52,7 +52,7 @@ class SpacialPolygon extends SpacialAbstract
 	public function addCoord(array $coord)
 	{
 		if (count($coord) != 3)
-			throw new Exception("Spacial Polygon coordinate requires three values. ".(count($coord))." found.");
+			throw new Exception("Spatial Polygon coordinate requires three values. ".(count($coord))." found.");
 
 		// lat, lon, group
 		$lat = (double)(isset($coord['lat']) ? $coord['lat'] : $coord[0]);

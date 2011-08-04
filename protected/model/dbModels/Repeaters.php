@@ -17,7 +17,7 @@
  * @property string $geo_coverage
  * @property string $import_data
  */
-class Repeaters extends AbstractSpacialModel
+class Repeaters extends AbstractSpatialModel
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -111,16 +111,16 @@ class Repeaters extends AbstractSpacialModel
 	 */
 	public function covers(SpatialAbstract $spatial)
 	{
-		return $this->intersects('geo_coverage', $spacial);
+		return $this->intersects('geo_coverage', $spatial);
 	}
 
 	/**
 	 * Filter the repeaters down to only those who are located within the spatial object
 	 * @param SpatialAbstract $spatial
-	 * @return <type>
+	 * @return Repeaters
 	 */
 	public function locatedIn(SpatialAbstract $spatial)
 	{
-		return $this->intersects('geo_location', $spacial);
+		return $this->within('geo_location', $spatial);
 	}
 }

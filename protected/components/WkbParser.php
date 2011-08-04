@@ -15,14 +15,14 @@ class WkbParser
 
 	/**
 	 * The object produced by parsing the data
-	 * @var SpacialAbstract
+	 * @var SpatialAbstract
 	 */
 	protected $obj = null;
 
 	/**
 	 * Parse binary data and return our Wkb class which it represents
 	 * @param binary $binary - the data to parse
-	 * @return SpacialAbstract
+	 * @return SpatialAbstract
 	 */
 	public static function parse($binary)
 	{
@@ -41,7 +41,7 @@ class WkbParser
 
 	/**
 	 * Get the object associated with this parser
-	 * @return SpacialAbstract
+	 * @return SpatialAbstract
 	 */
 	public function getObject()
 	{
@@ -77,39 +77,39 @@ class WkbParser
 
 	/**
 	 * Parse the object as an element of $type
-	 * @param integer $type - the spacial type
-	 * @return SpacialAbstract
+	 * @param integer $type - the Spatial type
+	 * @return SpatialAbstract
 	 */
 	protected function parseObject($type)
 	{
-		// Import our Spacial classes
-		Yii::import('application.components.spacial.SpacialAbstract');
+		// Import our Spatial classes
+		Yii::import('application.components.spatial.SpatialAbstract');
 
-		// Create our spacial class
-		$obj = SpacialAbstract::createFromType($type);
+		// Create our Spatial class
+		$obj = SpatialAbstract::createFromType($type);
 
 		// Parse it as needed
 		switch ($type)
 		{
-			case SpacialAbstract::POINT:
+			case SpatialAbstract::POINT:
 				$this->parsePoint($obj);
 				break;
-			case SpacialAbstract::LINE_STRING:
+			case SpatialAbstract::LINE_STRING:
 				$this->parseLineString($obj);
 				break;
-			case SpacialAbstract::POLYGON:
+			case SpatialAbstract::POLYGON:
 				$this->parsePolygon($obj);
 				break;
-			case SpacialAbstract::MULTI_POINT:
+			case SpatialAbstract::MULTI_POINT:
 				$this->parseMultiPoint($obj);
 				break;
-			case SpacialAbstract::MULTI_LINE_STRING:
+			case SpatialAbstract::MULTI_LINE_STRING:
 				$this->parseMultiLineString($obj);
 				break;
-			case SpacialAbstract::MULTI_POLYGON:
+			case SpatialAbstract::MULTI_POLYGON:
 				$this->parseMultiPolygon($obj);
 				break;
-			case SpacialAbstract::GEOMETRY_COLLECTION:
+			case SpatialAbstract::GEOMETRY_COLLECTION:
 				$this->parseGeometryCollection($obj);
 				break;
 		}
@@ -119,9 +119,9 @@ class WkbParser
 
 	/**
 	 * Parse a Point
-	 * @param SpacialPoint $obj
+	 * @param SpatialPoint $obj
 	 */
-	protected function parsePoint(SpacialPoint $obj)
+	protected function parsePoint(SpatialPoint $obj)
 	{
 		// Format: <point1> <point2>
 
@@ -151,9 +151,9 @@ class WkbParser
 
 	/**
 	 * Parse a Polygon
-	 * @param SpacialPolygon $obj
+	 * @param SpatialPolygon $obj
 	 */
-	protected function parsePolygon(SpacialPolygon $obj)
+	protected function parsePolygon(SpatialPolygon $obj)
 	{
 		// Format: <num-polys> <num-points-1> <points1..n> <num-points-2> <points1..n> .. <num-points-n> <points1..n>
 

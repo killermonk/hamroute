@@ -17,9 +17,10 @@ class SearchLogic extends AbstractLogic
 	public function getRepeatersAlongRoute(array $routeCoords, $band=null)
 	{
 		// Create our SpatialPolyLine to represent our route
-		$route = new SpatialPolyLine();
+		Yii::import('application.components.spatial.SpatialAbstract');
+		$route = SpatialAbstract::createFromType(SpatialAbstract::LINE_STRING);
 		foreach ($routeCoords as $coords)
-			$route->addCoords($coords);
+			$route->addCoord($coords);
 
 		// Create our search criteria for the repeater
 		$criteria = array();
@@ -29,5 +30,9 @@ class SearchLogic extends AbstractLogic
 		// Find all of our repeaters
 		$unit = new RepeaterUnit();
 		$repeaters = $unit->getNearSpatial($route, $criteria);
+
+		// TODO do any other processing on the repeaters
+
+		return $repeaters;
 	}
 }

@@ -1,14 +1,14 @@
 <?php
 
 // For autoloading our sub classes
-Yii::import('application.components.spacial.*');
+Yii::import('application.components.spatial.*');
 
 /**
- * The abstract class to define a common interface to the OpenGIS spacial classes
+ * The abstract class to define a common interface to the OpenGIS Spatial classes
  *
  * @author Brian Armstrong <kf7huf@gmail.com>
  */
-abstract class SpacialAbstract
+abstract class SpatialAbstract
 {
 	// Constants for out type of objects
 	const POINT = 1;
@@ -66,20 +66,20 @@ abstract class SpacialAbstract
 	/**
 	 * Factory method for creating a Spatial object based on it's type
 	 * @param integer $type
-	 * @return SpacialAbstract
+	 * @return SpatialAbstract
 	 */
 	public static function createFromType($type)
 	{
 		switch ($type)
 		{
-			case self::POINT: $obj = new SpacialPoint(); break;
-			case self::LINE_STRING: $obj = new SpacialLineString(); break;
-			case self::POLYGON: $obj = new SpacialPolygon(); break;
-			case self::MULTI_POINT: $obj = new SpacialMultiPoint(); break;
-			case self::MULTI_LINE_STRING: $obj = new SpacialMultiLineString(); break;
-			case self::MULTI_POLYGON: $obj = new SpacialMultiPolygon(); break;
-			case self::GEOMETRY_COLLECTION: $obj = new SpacialGeometryCollection(); break;
-			default: throw new Exception("Spacial type {$type} was not found");
+			case self::POINT: $obj = new SpatialPoint(); break;
+			case self::LINE_STRING: $obj = new SpatialLineString(); break;
+			case self::POLYGON: $obj = new SpatialPolygon(); break;
+			case self::MULTI_POINT: $obj = new SpatialMultiPoint(); break;
+			case self::MULTI_LINE_STRING: $obj = new SpatialMultiLineString(); break;
+			case self::MULTI_POLYGON: $obj = new SpatialMultiPolygon(); break;
+			case self::GEOMETRY_COLLECTION: $obj = new SpatialGeometryCollection(); break;
+			default: throw new Exception("Spatial type {$type} was not found");
 		}
 
 		return $obj;
