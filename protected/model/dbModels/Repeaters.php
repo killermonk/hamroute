@@ -29,6 +29,24 @@ class Repeaters extends AbstractSpatialModel
 	}
 
 	/**
+	 * Get the coverage polygon for the given repeater
+	 * @return SpatialPolygon
+	 */
+	public function getCoveragePolygon()
+	{
+		return WkbParser::parse($this->geo_coverage);
+	}
+
+	/**
+	 * Get the point for the location of the repeater
+	 * @return SpatialPoint
+	 */
+	public function getLocationPoint()
+	{
+		return WkbParser::parse($this->geo_location);
+	}
+
+	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
