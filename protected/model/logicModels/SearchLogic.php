@@ -85,8 +85,8 @@ class SearchLogic extends AbstractLogic
 		// Create our SpatialPolyLine to represent our route
 		Yii::import('application.components.spatial.SpatialAbstract');
 		$route = SpatialAbstract::createFromType(SpatialAbstract::POLYGON);
-		//foreach ($routeCoords as $coords)
-			$route->addCoord($routeCoords);
+		foreach ($routeCoords as $coords)
+			$route->addCoord($coords);
 
 		// Create our search criteria for the repeater
 		$criteria = array();

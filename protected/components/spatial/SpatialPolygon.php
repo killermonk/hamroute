@@ -48,16 +48,25 @@ class SpatialPolygon extends SpatialAbstract
 
 	/**
 	 * Add a coordinate to the polygon
+	 * @param array $coord - the description of a single coordinate to be added to the polygon
+	 *		array(
+	 *			0/'lat' => $lat,
+	 *			1/'lon' => $lon,
+	 *			3/'group' => $group, // Since polygons can have multiple point groups
+	 *		)
 	 */
 	public function addCoord(array $coord)
 	{
-		if (count($coord) < 3)
-			throw new Exception("Spatial Polygon coordinate requires three values. ".(count($coord))." found.");
+		if (count($coord) != 2 && count($coord) != 3)
+			throw new Exception("Spatial Polygon coordinate requires two or three values. ".(count($coord))." found.");
 
 		// lat, lon, group
 		$lat = (double)(isset($coord['lat']) ? $coord['lat'] : $coord[0]);
 		$lon = (double)(isset($coord['lon']) ? $coord['lon'] : $coord[1]);
-		$group = (int)(isset($coord['group']) ? $coord['group'] : $coord[2]);
+		if (!isset($coord['group']))
+			$group = (isset($coord[2])) ? $coord[2] : 0; // Default to the first group
+		else
+			$group = (int)$coord['group'];
 
 		if (!isset($this->coords[$group]))
 			$this->coords[$group] = array();

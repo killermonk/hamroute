@@ -102,19 +102,28 @@ class AjaxController extends Controller
 			$result = $logic->getRepeatersAlongRoute($box);
 			foreach($result as $repeater)
 			{
-				// this takes waaay to long, need better way to determin unique repeaters
+				// Every time this method is called, it re-parses the binary data.
+				//   cache the result so we don't do it multiple times
+				$locationCoords = $repeater->getLocationPoint()->getCoords();
+
+				// NOTE: This is a bad way of checking uniqueness. It will kind of work
+				//  but you can have multiple repeaters running from the same two, just with
+				//  different antennas, so it can be a different repeaters on a different
+				//  frequency at the same location...
 				$unique = true;
 				foreach($repeaters as $rpt)
 				{
-					if($rpt['location'] == $repeater->getLocationPoint()->getCoords())
+					if($rpt['location'] == $locationCoords)
 					{
 						$unique = false;
+						break; // This repeater is not unique, stop checking
 					}
 				}
+
 				if($unique)
 				{
 					$repeaters[$i]['id'] = $i;
-					$repeaters[$i]['location'] = $repeater->getLocationPoint()->getCoords();
+					$repeaters[$i]['location'] = $locationCoords;
 					$repeaters[$i]['coverage'] = $repeater->getCoveragePolygon()->getCoords();
 					$i++;
 				}

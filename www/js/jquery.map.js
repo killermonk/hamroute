@@ -67,13 +67,15 @@
 		getRepeaters : function(polyLine) {
 			// turn polyLine into array of rectangles
 			var routeBoxer = new RouteBoxer();
-			var boxes = 12;
 			var boxes = routeBoxer.box(polyLine, 1);
 			methods.drawBoxes(boxes);
-			
+
 			var pathBoxes = [];
 			for (var i=0; i<boxes.length; i++)
-				pathBoxes.push(boxes[i].toUrlValue().split(','));
+			{
+				var points = boxes[i].toUrlValue().split(',');
+				pathBoxes.push([[points[0],points[1]],[points[0],points[3]],[points[2],points[3]],[points[2],points[1]]]);
+			}
 			
 			// show loading
 			$(box).append('<div id="loading">Loading</div>');
