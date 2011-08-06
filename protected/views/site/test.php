@@ -119,15 +119,15 @@ CClientScript::POS_HEAD);
     </form>
   </div>
 
-  <div style="position:absolute; left:20px; top:50px; background:url('images/HAM-UI_04.png'); width:179px; height:286px;">
+  <div style="position:absolute; left:20px; top:50px; background:url('http://hamroute.com/images/HAM-UI_04.png'); width:179px; height:286px;">
     recent searches
   </div>
 
-  <div id="map_canvas" style="position:absolute; width:424px; height:286px; left:200px; top:50px; background:url('images/HAM-UI_05.png');">
+  <div id="map_canvas" style="position:absolute; width:424px; height:286px; left:200px; top:50px; background:url('http://hamroute.com/images/HAM-UI_05.png');">
     map canvas
   </div>
 </div>
-<div style="position:absolute; left:20px; top:350px; width:603px; height:434px; background:url('images/HAM-UI_06.png') no-repeat center;">
+<div style="position:absolute; left:20px; top:350px; width:603px; height:434px; background:url('http://hamroute.com/images/HAM-UI_06.png') no-repeat center;">
   <div style="position:absolute; top:0px; left:70px; font-weight:bold;">
     <a href="javascript:DivSwitch('Repeaters','folder');">Repeaters</a>
   </div>
