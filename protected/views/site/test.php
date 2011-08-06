@@ -127,7 +127,8 @@ CClientScript::POS_HEAD);
     map canvas
   </div>
 </div>
-<div style="position:absolute; left:20px; top:350px; width:603px; height:434px; background:url('http://hamroute.com/images/HAM-UI_06.png') no-repeat center;">
+
+<div style="position:absolute; left:20px; top:650px; width:603px; height:434px; background:url('http://hamroute.com/images/HAM-UI_06.png') no-repeat center;">
   <div style="position:absolute; top:0px; left:70px; font-weight:bold;">
     <a href="javascript:DivSwitch('Repeaters','folder');">Repeaters</a>
   </div>
