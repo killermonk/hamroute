@@ -3,7 +3,7 @@
 	var map;
 	var box;
 	var directionsDisplay = new google.maps.DirectionsRenderer();
-	var FILLOPACITY = .2;
+	var FILLOPACITY = 0;
 	var markerArray = [];
 	var polygonArray = [];
 	var latLngArray = [];
@@ -65,25 +65,43 @@
 		
 		// get repeaters (ajax)
 		getRepeaters : function(polyLine) {
-			var path = [];
-			for (var i=0; i<polyLine.length; i++)
-				path.push(polyLine[i].toUrlValue().split(','));
-
+			// turn polyLine into array of rectangles
+			var routeBoxer = new RouteBoxer();
+			var boxes = 12;
+			var boxes = routeBoxer.box(polyLine, 1);
+			methods.drawBoxes(boxes);
+			
+			var pathBoxes = [];
+			for (var i=0; i<boxes.length; i++)
+				pathBoxes.push(boxes[i].toUrlValue().split(','));
+			
 			// show loading
 			$(box).append('<div id="loading">Loading</div>');
 			// get repeaters
 			$.ajax({
 				url: '/ajax/getRepeaters',
 				type: "POST",
-				data: {polyline: path},
+				data: {boxes: pathBoxes},
 				dataType: 'json',
 				success: function(response) {
-					// update status element
-					//$('#status').html(response);
-					//alert(response[1]['repeater_id']);
 					methods.parseRepeaters(response);
 				}
 			});
+		},
+		
+		// temp function to show new bounding boxes
+		drawBoxes : function(boxes) {
+			boxpolys = new Array(boxes.length);
+			for (var i = 0; i < boxes.length; i++) {
+				boxpolys[i] = new google.maps.Rectangle({
+				bounds: boxes[i],
+				fillOpacity: 0,
+				strokeOpacity: 1.0,
+				strokeColor: '#000000',
+				strokeWeight: 1,
+				map: map
+			});
+			}
 		},
 		
 		// add repeater for each object

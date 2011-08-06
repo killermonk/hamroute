@@ -51,7 +51,7 @@ class SpatialPolygon extends SpatialAbstract
 	 */
 	public function addCoord(array $coord)
 	{
-		if (count($coord) != 3)
+		if (count($coord) < 3)
 			throw new Exception("Spatial Polygon coordinate requires three values. ".(count($coord))." found.");
 
 		// lat, lon, group

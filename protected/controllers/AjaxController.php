@@ -66,21 +66,36 @@ class AjaxController extends Controller
 	/**
 	 * This is the default 'index' action that is invoked
 	 * when an action is not explicitly requested by users.
-	 * @param array $polyline - the list of points to find repeaters along
+	 * @param array $boxes - the array of boxes to find repeaters along
 	 */
-	public function actionGetRepeaters(array $polyline)
+	public function actionGetRepeaters(array $boxes)
 	{
+		$i = 0;
 		$logic = new SearchLogic();
-		$result = $logic->getRepeatersAlongRoute($polyline);
-
 		$repeaters = array();
-		foreach($result as $key => $repeater)
+		foreach($boxes as $box)
 		{
-			$repeaters[$key]['id'] = $key;
-			$repeaters[$key]['location'] = $repeater->getLocationPoint()->getCoords();
-			$repeaters[$key]['coverage'] = $repeater->getCoveragePolygon()->getCoords();
+			$result = $logic->getRepeatersAlongRoute($box);
+			foreach($result as $repeater)
+			{
+				// this takes waaay to long, need better way to determin unique repeaters
+				$unique = true;
+				foreach($repeaters as $rpt)
+				{
+					if($rpt['location'] == $repeater->getLocationPoint()->getCoords())
+					{
+						$unique = false;
+					}
+				}
+				if($unique)
+				{
+					$repeaters[$i]['id'] = $i;
+					$repeaters[$i]['location'] = $repeater->getLocationPoint()->getCoords();
+					$repeaters[$i]['coverage'] = $repeater->getCoveragePolygon()->getCoords();
+					$i++;
+				}
+			}
 		}
-
 		$this->setData($repeaters);
 	}
 

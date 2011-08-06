@@ -61,7 +61,7 @@ class SearchLogic extends AbstractLogic
 	/**
 	 * Get all the repeaters who's coverage areas overlap the route and matches
 	 *  the given search filters
-	 * @param array $routeCoords - an array of points defining the route
+	 * @param array $routeCoords - an array of points defining routeBox
 	 * @param string $band - the band we want to use (null for all)
 	 * @return array(Repeaters)
 	 */
@@ -69,9 +69,9 @@ class SearchLogic extends AbstractLogic
 	{
 		// Create our SpatialPolyLine to represent our route
 		Yii::import('application.components.spatial.SpatialAbstract');
-		$route = SpatialAbstract::createFromType(SpatialAbstract::LINE_STRING);
-		foreach ($routeCoords as $coords)
-			$route->addCoord($coords);
+		$route = SpatialAbstract::createFromType(SpatialAbstract::POLYGON);
+		//foreach ($routeCoords as $coords)
+			$route->addCoord($routeCoords);
 
 		// Create our search criteria for the repeater
 		$criteria = array();
