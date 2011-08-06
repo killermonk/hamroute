@@ -110,8 +110,8 @@ CClientScript::POS_HEAD);
 	}
 }
 </script>
-<div style="position:absolute; top:300px; left:0px; width:650;">
-  <div style="position:absolute; left:20px; top:20px;">
+<div style="position:absolute; top:300px; left:0px;">
+  <div style="position:absolute; left:20px; top:20px; width:650;">
     <form>
       Start Location: <input type="text" name="fromLocation" id="FromLocation" style="width:220px;" />
       Destination: <input type="text" name="toLocation" id="ToLocation" style="width:220px;" />
@@ -119,11 +119,11 @@ CClientScript::POS_HEAD);
     </form>
   </div>
 
-  <div style="position:absolute; left:20px; top:50px; background:url('http://hamroute.com/images/HAM-UI_04.png'); width:179px; height:286px;">
+  <div style="position:absolute; left:20px; top:75px; background:url('http://hamroute.com/images/HAM-UI_04.png'); width:179px; height:286px;">
     recent searches
   </div>
 
-  <div id="map_canvas" style="position:absolute; width:424px; height:286px; left:200px; top:50px; background:url('http://hamroute.com/images/HAM-UI_05.png');">
+  <div id="map_canvas" style="position:absolute; width:424px; height:286px; left:200px; top:75px; background:url('http://hamroute.com/images/HAM-UI_05.png');">
     map canvas
   </div>
 </div>
