@@ -15,6 +15,34 @@ class AjaxController extends Controller
 	 * @var boolean
 	 */
 	protected $autoRender = true;
+	
+	/*****************
+	 * Overrides
+	 *****************/
+
+	/**
+	 * Get the parameter array to be used for automagically assinging values to function arguments
+	 * @return array
+	 */
+	public function getActionParams()
+	{
+		$args = parent::getActionParams();
+
+		// Add in the $_POST array, giving it precedence
+		return array_merge($args, $_POST);
+	}
+
+	/**
+	 * Define the filters to be applied to the actions
+	 * @return array - the filter configuration
+	 */
+	public function filters()
+	{
+		// Force all methods to be called as ajax
+		return array(
+			'ajaxOnly',
+		);
+	}
 
 	/**
 	 * After the action executes, run this. It will auto render our data
@@ -32,6 +60,10 @@ class AjaxController extends Controller
 			));
 		}
 	}
+
+	/*****************
+	 * Helpers
+	 *****************/
 
 	/**
 	 * Set the data we are going to json encode
@@ -51,22 +83,14 @@ class AjaxController extends Controller
 		$this->autoRender = $render;
 	}
 
-	/**
-	 * Get the parameter array to be used for automagically assinging values to function arguments
-	 * @return array
-	 */
-	public function getActionParams()
-	{
-		$args = parent::getActionParams();
-
-		// Add in the $_POST array, giving it precedence
-		return array_merge($args, $_POST);
-	}
+	/*****************
+	 * Actions
+	 *****************/
 
 	/**
-	 * This is the default 'index' action that is invoked
-	 * when an action is not explicitly requested by users.
+	 * Get a list of repeaters that cross the cover the given polyline
 	 * @param array $boxes - the array of boxes to find repeaters along
+	 * @return array - the list of repeaters
 	 */
 	public function actionGetRepeaters(array $boxes)
 	{
@@ -104,12 +128,16 @@ class AjaxController extends Controller
 	 * @param string $start
 	 * @param string $end
 	 * @param array $extra
+	 * @return array(success => $status) (true or false)
 	 */
 	public function actionLogSearch($start, $end, array $extra=null)
 	{
 		// Clean data
 		$start = trim($start);
 		$end = trim($end);
+
+		if ($extra === null)
+			$extra = array();
 
 		// Validation
 		if (empty($start))
@@ -119,6 +147,23 @@ class AjaxController extends Controller
 
 		$logic = new SearchLogic();
 		$logic->saveRecentSearch($start, $end, $extra);
+
+		$this->setData(array(
+			'success' => true,
+			'searches' => $logic->getRecentSearches(),
+		));
+	}
+
+	/**
+	 * Get the information about our recently searches
+	 * @return array - the list of saved searches
+	 */
+	public function actionGetRecentSearches()
+	{
+		$logic = new SearchLogic();
+		$searches = $logic->getRecentSearches();
+
+		$this->setData($searches);
 	}
 	
 	/**
@@ -126,14 +171,15 @@ class AjaxController extends Controller
 	 */
 	public function actionError()
 	{
-	    if($error=Yii::app()->errorHandler->error)
-	    {
+		$error=Yii::app()->errorHandler->error;
+		if($error)
+		{
 			$this->setAutoRender(false);
-	    	if(Yii::app()->request->isAjaxRequest)
-	    		echo $error['message'];
-	    	else
-	        	$this->render('error', $error);
-	    }
+			if(Yii::app()->request->isAjaxRequest)
+				echo $error['message'];
+			else
+				$this->render('error', $error);
+		}
 	}
 
 }

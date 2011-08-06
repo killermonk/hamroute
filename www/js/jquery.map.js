@@ -53,9 +53,9 @@
 				destination:end,
 				travelMode: google.maps.TravelMode.DRIVING
 			};
-			directionsDisplay.setMap(map);
 			directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
+					directionsDisplay.setMap(map);
 					directionsDisplay.setDirections(result);
 					// send polyLine
 					methods.getRepeaters(result.routes[0].overview_path);

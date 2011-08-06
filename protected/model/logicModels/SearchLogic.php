@@ -17,14 +17,10 @@ class SearchLogic extends AbstractLogic
 	 * Save a recent search for the currently active user
 	 * @param string $start - the start locatino of the search
 	 * @param string $end - the end location of the search
-	 * @param array $extra - extra information about the search
+	 * @param array $extra - [optional] extra information about the search
 	 */
 	public function saveRecentSearch($start, $end, array $extra)
 	{
-		// Clean our data up a bit
-		$start = trim($start);
-		$end = trim($end);
-
 		// Get our list of recent searches and make sure this doesn't overlap them
 		$searches = $this->getRecentSearches();
 
@@ -42,8 +38,20 @@ class SearchLogic extends AbstractLogic
 		// Add the search if we want to
 		if ($addSearch)
 		{
+			$session = new CHttpSession();
+			$session->open();
+
 			// This will always be defined, because it is defined by getRecentSearches
-			$_SESSION[$this->searchesIndex][] = compact('start', 'end', 'extra');
+			// Push the new item onto the front of the array, to enforce ordering
+			array_unshift($searches, compact('start', 'end', 'extra'));
+
+			// If we have too many searches, trim off the old ones
+			$max = Yii::app()->params['maxRecentSearches'];
+			if (count($searches) > $max)
+				array_splice($searches, $max);
+
+			$session[$this->searchesIndex] = $searches;
+			$session->close();
 		}
 	}
 
@@ -53,9 +61,16 @@ class SearchLogic extends AbstractLogic
 	 */
 	public function getRecentSearches()
 	{
-		if (!isset($_SESSION[$this->searchesIndex]))
-			$_SESSION[$this->searchesIndex] = array();
-		return $_SESSION[$this->searchesIndex];
+		$session = new CHttpSession();
+		$session->open();
+
+		if (!isset($session[$this->searchesIndex]))
+			$session[$this->searchesIndex] = array();
+
+		$searches = $session[$this->searchesIndex];
+		$session->close();
+
+		return $searches;
 	}
 
 	/**

@@ -39,6 +39,9 @@ return array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),
+		'session'=>array(
+			'autoStart'=>true,
+		),
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'showScriptName'=>false,
@@ -87,5 +90,6 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@hamtrip.com',
+		'maxRecentSearches'=>10,
 	),
 );
