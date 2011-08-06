@@ -111,7 +111,7 @@ CClientScript::POS_HEAD);
 }
 </script>
 <div style="position:absolute; top:300px; left:0px;">
-  <div style="position:absolute; left:20px; top:20px; width:650;">
+  <div style="position:absolute; left:20px; top:20px; width:700px;">
     <form>
       Start Location: <input type="text" name="fromLocation" id="FromLocation" style="width:220px;" />
       Destination: <input type="text" name="toLocation" id="ToLocation" style="width:220px;" />
@@ -128,7 +128,7 @@ CClientScript::POS_HEAD);
   </div>
 </div>
 
-<div style="position:absolute; left:20px; top:650px; width:603px; height:434px; background:url('http://hamroute.com/images/HAM-UI_06.png') no-repeat center;">
+<div style="position:absolute; left:20px; top:675px; width:603px; height:434px; background:url('http://hamroute.com/images/HAM-UI_06.png') no-repeat center;">
   <div style="position:absolute; top:0px; left:70px; font-weight:bold;">
     <a href="javascript:DivSwitch('Repeaters','folder');">Repeaters</a>
   </div>
