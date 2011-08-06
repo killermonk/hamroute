@@ -73,8 +73,7 @@
 			var pathBoxes = [];
 			for (var i=0; i<boxes.length; i++)
 			{
-				var points = boxes[i].toUrlValue().split(',');
-				pathBoxes.push([[points[0],points[1]],[points[0],points[3]],[points[2],points[3]],[points[2],points[1]]]);
+				pathBoxes.push(boxes[i].toUrlValue().split(','));
 			}
 			
 			// show loading

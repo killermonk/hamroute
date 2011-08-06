@@ -97,36 +97,27 @@ class AjaxController extends Controller
 		$i = 0;
 		$logic = new SearchLogic();
 		$repeaters = array();
+		$usedRepeaters = array(); // Lookup array
 		foreach($boxes as $box)
 		{
-			$result = $logic->getRepeatersAlongRoute($box);
+			$result = $logic->getRepeatersByBounds($box);
 			foreach($result as $repeater)
 			{
-				// Every time this method is called, it re-parses the binary data.
-				//   cache the result so we don't do it multiple times
-				$locationCoords = $repeater->getLocationPoint()->getCoords();
+				$rptrId = $repeater->repeater_id;
 
-				// NOTE: This is a bad way of checking uniqueness. It will kind of work
-				//  but you can have multiple repeaters running from the same two, just with
-				//  different antennas, so it can be a different repeaters on a different
-				//  frequency at the same location...
-				$unique = true;
-				foreach($repeaters as $rpt)
-				{
-					if($rpt['location'] == $locationCoords)
-					{
-						$unique = false;
-						break; // This repeater is not unique, stop checking
-					}
-				}
+				// If we have already used this repeater, skip it
+				if (isset($usedRepeaters[$rptrId]))
+					continue;
 
-				if($unique)
-				{
-					$repeaters[$i]['id'] = $i;
-					$repeaters[$i]['location'] = $locationCoords;
-					$repeaters[$i]['coverage'] = $repeater->getCoveragePolygon()->getCoords();
-					$i++;
-				}
+				// Flag this repeater as used
+				$usedRepeaters[$rptrId] = true;
+
+				$repeaters[$i] = array(
+					'id' => $i,
+					'location' => $repeater->getLocationPoint()->getCoords(),
+					'coverage' => $repeater->getCoveragePolygon()->getCoords(),
+				);
+				$i++;
 			}
 		}
 		$this->setData($repeaters);

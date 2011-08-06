@@ -47,6 +47,24 @@ class SpatialPolygon extends SpatialAbstract
 	}
 
 	/**
+	 * Add points to the polygon as a bounding box. Please don't call this function more than once for
+	 *   the same group unless you really know what you are doing. It can make for some weird results
+	 * @param double $lat1
+	 * @param double $lon1
+	 * @param double $lat2
+	 * @param double $lon2
+	 * @param integer $group
+	 */
+	public function setBounds($lat1, $lon1, $lat2, $lon2, $group)
+	{
+		$this->addCoord(array($lat1, $lon1, $group));
+		$this->addCoord(array($lat1, $lon2, $group));
+		$this->addCoord(array($lat2, $lon2, $group));
+		$this->addCoord(array($lat2, $lon1, $group));
+		$this->addCoord(array($lat1, $lon1, $group)); // Close it off
+	}
+
+	/**
 	 * Add a coordinate to the polygon
 	 * @param array $coord - the description of a single coordinate to be added to the polygon
 	 *		array(

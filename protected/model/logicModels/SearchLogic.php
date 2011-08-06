@@ -74,6 +74,45 @@ class SearchLogic extends AbstractLogic
 	}
 
 	/**
+	 * Get the repeaters that are near a spatial object
+	 * @param SpacialAbstract $spacial
+	 * @param string $band - the band we want to use (null for all)
+	 * @return array(Repeaters)
+	 */
+	protected function getRepeatersNearSpatial(SpatialAbstract $spacial, $band=null)
+	{
+		// Create our search criteria for the repeater
+		$criteria = array();
+		if (!empty($band))
+			$criteria['band'] = $band;
+
+		// Find all of our repeaters
+		$unit = new RepeaterUnit();
+		$repeaters = $unit->getNearSpatial($spacial, $criteria);
+
+		// TODO do any other processing on the repeaters
+
+		return $repeaters;
+	}
+
+	/**
+	 * Get all repeaters who's coverage areas overlap the given boudning coordinates
+	 * @param array $boundingCoords - an array of 4 points specifying the bounding box
+	 * @param string $band - the band we want to use (null for all)
+	 * @return array(Repeaters)
+	 */
+	public function getRepeatersByBounds(array $boundingCoords, $band=null)
+	{
+		// Create our SpatialPolygon to represent our bounding box
+		Yii::import('application.components.spatial.SpatialAbstract');
+		$box = SpatialAbstract::createFromType(SpatialAbstract::POLYGON);
+		$box->setBounds($boundingCoords[0], $boundingCoords[1], $boundingCoords[2], $boundingCoords[3], 0);
+
+		// Find all the repeaters
+		return $this->getRepeatersNearSpatial($box, $band);
+	}
+
+	/**
 	 * Get all the repeaters who's coverage areas overlap the route and matches
 	 *  the given search filters
 	 * @param array $routeCoords - an array of points defining routeBox
@@ -82,23 +121,13 @@ class SearchLogic extends AbstractLogic
 	 */
 	public function getRepeatersAlongRoute(array $routeCoords, $band=null)
 	{
-		// Create our SpatialPolyLine to represent our route
+		// Create our SpatialLineString to represent our route
 		Yii::import('application.components.spatial.SpatialAbstract');
-		$route = SpatialAbstract::createFromType(SpatialAbstract::POLYGON);
+		$route = SpatialAbstract::createFromType(SpatialAbstract::LINE_STRING);
 		foreach ($routeCoords as $coords)
 			$route->addCoord($coords);
 
-		// Create our search criteria for the repeater
-		$criteria = array();
-		if (!empty($band))
-			$criteria['band'] = $band;
-
-		// Find all of our repeaters
-		$unit = new RepeaterUnit();
-		$repeaters = $unit->getNearSpatial($route, $criteria);
-
-		// TODO do any other processing on the repeaters
-
-		return $repeaters;
+		// Find all the repeaters
+		return $this->getRepeatersNearSpatial($route, $band);
 	}
 }
