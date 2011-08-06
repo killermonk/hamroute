@@ -26,30 +26,9 @@ class SiteController extends Controller
 	 */
 	public function actionTest()
 	{
-		// get 10 test repeaters
-		$repeaters = Yii::app()->db->createCommand()
-			->select('asText(geo_location) as geo_location, asText(geo_coverage) as geo_coverage')
-			->from('repeaters')
-			->limit(10)
-			->queryAll();
-		foreach($repeaters as $key => $repeater) {
-			$repeaters[$key]['geo_location'] = $this->point2LatLng($repeater['geo_location']);
-			$repeaters[$key]['geo_coverage'] = $this->polygon2LatLng($repeater['geo_coverage']);
-		}
-
 		// renders the view file 'protected/views/site/test.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('test', array('repeaters' => $repeaters));
-	}
-	
-	private function polygon2LatLng($polygon)
-	{
-		return str_replace(' ', ',', str_replace(',', '|', trim($polygon, "POLYGON()")));
-	}
-	
-	private function point2LatLng($point)
-	{
-		return str_replace(' ', ',', trim($point, "POINT()"));
+		$this->render('test');
 	}
 
 	/**

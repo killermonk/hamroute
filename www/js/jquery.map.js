@@ -3,10 +3,11 @@
 	var map;
 	var box;
 	var directionsDisplay = new google.maps.DirectionsRenderer();
-	var FILLOPACITY = 0;
+	var boxArray = [];
+	var latLngArray = [];
 	var markerArray = [];
 	var polygonArray = [];
-	var latLngArray = [];
+	var FILLOPACITY = 0;
 	
 	var methods = {
 	
@@ -34,6 +35,8 @@
 			}
 			// remove direction polyline
 			directionsDisplay.setMap(null);
+			// remove bounding boxes
+			methods.clearBoxes();
 			// empty arrays
 			markerArray.length = 0;
 			polygonArray.length = 0;
@@ -92,9 +95,9 @@
 		
 		// temp function to show new bounding boxes
 		drawBoxes : function(boxes) {
-			boxpolys = new Array(boxes.length);
+			boxArray = Array(boxes.length);
 			for (var i = 0; i < boxes.length; i++) {
-				boxpolys[i] = new google.maps.Rectangle({
+				boxArray[i] = new google.maps.Rectangle({
 				bounds: boxes[i],
 				fillOpacity: 0,
 				strokeOpacity: 1.0,
@@ -105,6 +108,16 @@
 			}
 		},
 		
+		// temp function to clean up drawBoxes
+		clearBoxes : function() {
+			if (boxArray != null) {
+				for (var i = 0; i < boxArray.length; i++) {
+					boxArray[i].setMap(null);
+				}
+			}
+			boxArray = null;
+		},
+
 		// add repeater for each object
 		parseRepeaters : function(repeatersObj) {
 			// remove loading
