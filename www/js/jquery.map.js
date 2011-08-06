@@ -2,7 +2,7 @@
 	
 	var map;
 	var box;
-	var directionsDisplay = new google.maps.DirectionsRenderer();
+	var directionsDisplay = new google.maps.DirectionsRenderer({draggable:true});
 	var boxArray = [];
 	var latLngArray = [];
 	var markerArray = [];
@@ -21,10 +21,15 @@
 				center: utah
 			}
 			map = new google.maps.Map(document.getElementById(this.attr('id')), myOptions);
-			//
+			// directions change
+			google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {  
+				methods.clearMap(true);  
+				methods.getRepeaters(directionsDisplay.getDirections().routes[0].overview_path);
+			});
 		},
 		
-		clearMap : function() {
+		clearMap : function(leavePath) {
+			leavePath = typeof(leavePath) != 'undefined' ? leavePath : false;
 			// empty box
 			$(box).empty();
 			for (var i in markerArray) {
@@ -34,7 +39,9 @@
 				polygonArray[i].setMap(null);
 			}
 			// remove direction polyline
-			directionsDisplay.setMap(null);
+			if(leavePath != true){
+				directionsDisplay.setMap(null);
+			}
 			// remove bounding boxes
 			methods.clearBoxes();
 			// empty arrays
@@ -54,14 +61,12 @@
 			var request = {
 				origin:start,
 				destination:end,
-				travelMode: google.maps.TravelMode.DRIVING
+				travelMode: google.maps.TravelMode.DRIVING,
 			};
 			directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
 					directionsDisplay.setMap(map);
 					directionsDisplay.setDirections(result);
-					// send polyLine
-					methods.getRepeaters(result.routes[0].overview_path);
 				}
 			});
 		},
@@ -103,6 +108,7 @@
 				strokeOpacity: 1.0,
 				strokeColor: '#000000',
 				strokeWeight: 1,
+				clickable: false,
 				map: map
 			});
 			}
@@ -149,6 +155,8 @@
 			polygonArray[repeaterObj['id']] = new google.maps.Polygon({
 				fillColor : 'black', 
 				fillOpacity : FILLOPACITY, 
+				strokeWeight : 1,
+				clickable: false,
 				map: map,
 				paths: methods.makeMVCArray(repeaterObj['coverage'])
 			});
