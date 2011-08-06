@@ -110,7 +110,7 @@ CClientScript::POS_HEAD);
 	}
 }
 </script>
-<div>
+<div style="position:absolute; top:200px;">
   <div style="position:absolute; left:20px; top:20px;">
     <form>
       Start Location: <input type="text" name="fromLocation" id="FromLocation" style="width:220px;" />
