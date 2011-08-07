@@ -30,6 +30,23 @@ Yii::app()->clientScript->registerScript(
 		}
 	};
 
+	var logSearch = function(start, end) {
+		// Log the search
+		$.ajax({
+			url: '/ajax/logSearch',
+			type: 'POST',
+			data: {
+				start: start,
+				end: end,
+			},
+			dataType: 'json',
+			success: function(response) {
+				if (response && response.searches)
+					displayRecentSearches(response.searches);
+			}
+		});
+	};
+
 	// Load our recent searches
 	$.ajax({
 		url: '/ajax/getRecentSearches',
@@ -60,22 +77,25 @@ Yii::app()->clientScript->registerScript(
 		$('<span/>', {text: 'directions from ' + start + ' to ' + end}).appendTo(trigger);
 
 		// Log the search
-		$.ajax({
-			url: '/ajax/logSearch',
-			type: 'POST',
-			data: {
-				start: start,
-				end: end,
-			},
-			dataType: 'json',
-			success: function(response) {
-				if (response && response.searches)
-					displayRecentSearches(response.searches);
-			}
-		});
+		logSearch(start, end);
 
 		// Draw our map
 		$('#repeaters').map('drawRoute', start, end);
+	});
+
+	// Capture the form submission and use it
+	$('#locationForm').submit(function(){
+		var start = $('#FromLocation').first().val();
+		var end = $('#ToLocation').first().val();
+
+		// Log the search
+		logSearch(start, end);
+
+		// Draw our map
+		$('#repeaters').map('drawRoute', start, end);
+
+		// Always handle with ajax
+		return false;
 	});
 });", 
 CClientScript::POS_HEAD);
@@ -91,17 +111,22 @@ CClientScript::POS_HEAD);
 <script type="text/javascript">
 function DivSwitch(obj,newdiv){
 	if(document.getElementById){
-		var el = document.getElementById(obj);
-		var ar = document.getElementById(newdiv).getElementsByTagName('div');
-		var def = document.getElementById('defaultDiv');
-		if(el.style.display == 'none'){
+		var el = $('#'+obj).first(); //document.getElementById(obj);
+		var ar = $('#'+newdiv+' > div'); //document.getElementById(newdiv).getElementsByTagName('div');
+		var def = $('.defaultDiv').first(); //document.getElementById('defaultDiv');
+		//if(el.style.display == 'none'){
+		if (el.css('display') == 'none'){
 			for (var i=0; i<ar.length; i++){
-				ar[i].style.display = 'none';
+				//ar[i].style.display = 'none';
+				$(ar[i]).css('display', 'none');
 			}
-			el.style.display = 'block';
+			//el.style.display = 'block';
+			el.css('display', 'block');
 		}else{
-			el.style.display = '';
-			def.style.display = 'block';
+			//el.style.display = '';
+			el.css('display', '');
+			//def.style.display = 'block';
+			def.css('display', 'block');
 		}
 	}
 }
@@ -132,7 +157,7 @@ function DivSwitch(obj,newdiv){
     <a href="javascript:DivSwitch('Directions','folder');">Directions</a>
   </div>
   <div id="folder" style="position:relative; top:50px; left:25px;">
-    <div id="Repeaters">Repeaters List</div>
+    <div id="Repeaters" class="defaultDiv">Repeaters List</div>
     <div id="Directions" style="display:none;">Directions</div>
   </div>
 </div>
