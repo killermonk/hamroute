@@ -125,20 +125,22 @@ class Repeaters extends AbstractSpatialModel
 	/**
 	 * Filter the repeaters down to only those who's coverage area is contained by the given spatial object
 	 * @param SpatialAbstract $spatial
+	 * @param boolean $useAnd - true to use and comparison, false to use or
 	 * @return Repeaters
 	 */
-	public function covers(SpatialAbstract $spatial)
+	public function covers(SpatialAbstract $spatial, $useAnd=true)
 	{
-		return $this->intersects('geo_coverage', $spatial);
+		return $this->intersects('geo_coverage', $spatial, $useAnd);
 	}
 
 	/**
 	 * Filter the repeaters down to only those who are located within the spatial object
 	 * @param SpatialAbstract $spatial
+	 * @param boolean $useAnd - true to use and comparison, false to use or
 	 * @return Repeaters
 	 */
-	public function locatedIn(SpatialAbstract $spatial)
+	public function locatedIn(SpatialAbstract $spatial, $useAnd=true)
 	{
-		return $this->within('geo_location', $spatial);
+		return $this->within('geo_location', $spatial, $useAnd);
 	}
 }

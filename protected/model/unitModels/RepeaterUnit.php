@@ -9,14 +9,24 @@ class RepeaterUnit extends AbstractUnit
 {
 	/**
 	 * Get all the repeaters that are near (intersect with) a Spatial object
-	 * @param SpatialAbstract $spatial
+	 * @param SpatialAbstract|array $spatial
 	 * @param array $criteria - any additional filter criteria
 	 * @return array(Repeaters)
 	 */
-	public function getNearSpatial(SpatialAbstract $spatial, array $criteria=null)
+	public function getNearSpatial($spatial, array $criteria=null)
 	{
 		// Initialize to check that the repeater covers a given region
-		$model = Repeaters::model()->covers($spatial);
+		$model = Repeaters::model();
+		if (is_array($spatial))
+		{
+			// Only find distinct repeaters
+			$model->getDbCriteria()->distinct = true;
+			// Add all the spatial objects in
+			foreach ($spatial as $obj)
+				$model->covers($obj, false);
+		}
+		else
+			$model->covers($spatial);
 
 		// Add the rest of our criteria
 		if (!empty($criteria))

@@ -90,17 +90,19 @@ class AjaxController extends Controller
 	/**
 	 * Get a list of repeaters that cross the cover the given polyline
 	 * @param array $boxes - the array of boxes to find repeaters along
+	 * @param string $band - the band to use when finding repeaters
 	 * @return array - the list of repeaters
 	 */
-	public function actionGetRepeaters(array $boxes)
+	public function actionGetRepeaters(array $boxes, $band=null)
 	{
 		$i = 0;
 		$logic = new SearchLogic();
 		$repeaters = array();
 		$usedRepeaters = array(); // Lookup array
-		foreach($boxes as $box)
+		//foreach($boxes as $box)
 		{
-			$result = $logic->getRepeatersByBounds($box);
+			$result = $logic->getRepeatersByMultiBounds($boxes, $band);
+			//$result = $logic->getRepeatersByBounds($box, $band);
 			foreach($result as $repeater)
 			{
 				$rptrId = $repeater->repeater_id;

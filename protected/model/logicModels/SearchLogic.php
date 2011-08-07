@@ -75,11 +75,11 @@ class SearchLogic extends AbstractLogic
 
 	/**
 	 * Get the repeaters that are near a spatial object
-	 * @param SpacialAbstract $spacial
+	 * @param SpacialAbstract|array $spacial
 	 * @param string $band - the band we want to use (null for all)
 	 * @return array(Repeaters)
 	 */
-	protected function getRepeatersNearSpatial(SpatialAbstract $spacial, $band=null)
+	protected function getRepeatersNearSpatial($spacial, $band=null)
 	{
 		// Create our search criteria for the repeater
 		$criteria = array();
@@ -93,6 +93,28 @@ class SearchLogic extends AbstractLogic
 		// TODO do any other processing on the repeaters
 
 		return $repeaters;
+	}
+
+	/**
+	 * Get all the repeaters covered by a list of bounding boxes
+	 * @param array $boundingBoxes
+	 * @param string $band
+	 * @return array(Repeaters)
+	 */
+	public function getRepeatersByMultiBounds(array $boundingBoxes, $band=null)
+	{
+		// Create our spatial polygons for each of the bounding boxes
+		$boxes = array();
+		Yii::import('application.components.spatial.SpatialAbstract');
+		foreach ($boundingBoxes as $boundingCoords)
+		{
+			$box = SpatialAbstract::createFromType(SpatialAbstract::POLYGON);
+			$box->setBounds($boundingCoords[0], $boundingCoords[1], $boundingCoords[2], $boundingCoords[3], 0);
+			$boxes[] = $box;
+		}
+
+		// Find all the repeaters
+		return $this->getRepeatersNearSpatial($boxes, $band);
 	}
 
 	/**
