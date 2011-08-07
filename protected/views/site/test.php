@@ -49,8 +49,11 @@ Yii::app()->clientScript->registerScript(
 	$('#trigger').click(function(e){
 		var start = startLocs[ Math.floor(Math.random()*100) % startLocs.length ] + ', utah';
 		var end = endLocs[ Math.floor(Math.random()*100) % endLocs.length ] + ', utah';
-		console.log('start locs:', startLocs, 'start', start);
-		console.log('end locs:', endLocs, 'end', end);
+		if (console && console.log)
+		{
+			console.log('start locs:', startLocs, 'start', start);
+			console.log('end locs:', endLocs, 'end', end);
+		}
 
 		var trigger = $('#trigger');
 		trigger.html('');
@@ -86,18 +89,18 @@ CClientScript::POS_HEAD);
 </div>
 <div id="repeaters"></div>
 <script type="text/javascript">
-  function DivSwitch(obj,newdiv){
-  if(document.getElementById){
-  var el = document.getElementById(obj);
-  var ar = document.getElementById(newdiv).getElementsByTagName('div');
-  var def = document.getElementById('defaultDiv');
-  if(el.style.display == 'none'){
-  for (var i=0; i<ar.length; i=""
-				ar=""[i=""].style.display = 'none'
+function DivSwitch(obj,newdiv){
+	if(document.getElementById){
+		var el = document.getElementById(obj);
+		var ar = document.getElementById(newdiv).getElementsByTagName('div');
+		var def = document.getElementById('defaultDiv');
+		if(el.style.display == 'none'){
+			for (var i=0; i<ar.length; i++){
+				ar[i].style.display = 'none';
 			}
-			el.style.display = 'block'
-		}else=''
-			el.style.display = ''
+			el.style.display = 'block';
+		}else{
+			el.style.display = '';
 			def.style.display = 'block';
 		}
 	}
@@ -105,23 +108,23 @@ CClientScript::POS_HEAD);
 </script>
 <div style="position:absolute; top:300px; left:0px;">
   <div style="position:absolute; left:20px; top:20px; width:700px;">
-    <form>
+    <form id="locationForm" action="" method="GET">
       Start Location: <input type="text" name="fromLocation" id="FromLocation" style="width:220px;" />
       Destination: <input type="text" name="toLocation" id="ToLocation" style="width:220px;" />
       <input type="submit" value="Search" />
     </form>
   </div>
 
-  <div style="position:absolute; left:20px; top:75px; background:url('http://hamroute.com/images/HAM-UI_04.png'); width:179px; height:286px;">
+  <div style="position:absolute; left:20px; top:75px; background:url('/images/HAM-UI_04.png'); width:179px; height:286px;">
     recent searches
   </div>
 
-  <div id="map_canvas" style="position:absolute; width:424px; height:286px; left:200px; top:75px; background:url('http://hamroute.com/images/HAM-UI_05.png');">
+  <div id="map_canvas" style="position:absolute; width:424px; height:286px; left:200px; top:75px; background:url('/images/HAM-UI_05.png');">
     map canvas
   </div>
 </div>
 
-<div style="position:absolute; left:20px; top:675px; width:603px; height:434px; background:url('http://hamroute.com/images/HAM-UI_06.png') no-repeat center;">
+<div style="position:absolute; left:20px; top:675px; width:603px; height:434px; background:url('/images/HAM-UI_06.png') no-repeat center;">
   <div style="position:absolute; top:0px; left:70px; font-weight:bold;">
     <a href="javascript:DivSwitch('Repeaters','folder');">Repeaters</a>
   </div>
