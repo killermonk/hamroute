@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Controller to handle our ajax requests
+ */
 class AjaxController extends Controller
 {
 	public $layout = 'empty'; // Use our empty layout, since we will be returning json
@@ -98,29 +101,27 @@ class AjaxController extends Controller
 		$i = 0;
 		$logic = new SearchLogic();
 		$repeaters = array();
-		$usedRepeaters = array(); // Lookup array
-		//foreach($boxes as $box)
+		$usedRepeaters = array(); // Lookup array for duplicates
+
+		// Get all the repeaters that are covered by these bounding boxes
+		$result = $logic->getRepeatersByMultiBounds($boxes, $band);
+		foreach($result as $repeater)
 		{
-			$result = $logic->getRepeatersByMultiBounds($boxes, $band);
-			//$result = $logic->getRepeatersByBounds($box, $band);
-			foreach($result as $repeater)
-			{
-				$rptrId = $repeater->repeater_id;
+			$rptrId = $repeater->repeater_id;
 
-				// If we have already used this repeater, skip it
-				if (isset($usedRepeaters[$rptrId]))
-					continue;
+			// If we have already used this repeater, skip it
+			if (isset($usedRepeaters[$rptrId]))
+				continue;
 
-				// Flag this repeater as used
-				$usedRepeaters[$rptrId] = true;
+			// Flag this repeater as used
+			$usedRepeaters[$rptrId] = true;
 
-				$repeaters[$i] = array(
-					'id' => $i,
-					'location' => $repeater->getLocationPoint()->getCoords(),
-					'coverage' => $repeater->getCoveragePolygon()->getCoords(),
-				);
-				$i++;
-			}
+			$repeaters[$i] = array(
+				'id' => $i,
+				'location' => $repeater->getLocationPoint()->getCoords(),
+				'coverage' => $repeater->getCoveragePolygon()->getCoords(),
+			);
+			$i++;
 		}
 		$this->setData($repeaters);
 	}
