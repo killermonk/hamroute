@@ -24,35 +24,36 @@ class SearchLogic extends AbstractLogic
 		// Get our list of recent searches and make sure this doesn't overlap them
 		$searches = $this->getRecentSearches();
 
-		// Determine whether or not we should add this search
-		$addSearch = true;
-		foreach ($searches as $search)
+		// Find the location of this search if it already exists in our list
+		$searchIndex = false;
+		foreach ($searches as $index => $search)
 		{
-			if ($search['start'] == $start && $search['end'] == $end)
+			// Lowercase searching
+			if (strcasecmp($search['start'], $start) == 0 && strcasecmp($search['end'], $end) == 0)
 			{
-				$addSearch = false;
+				$searchIndex = $index;
 				break;
 			}
 		}
 
-		// Add the search if we want to
-		if ($addSearch)
-		{
-			$session = new CHttpSession();
-			$session->open();
+		$session = new CHttpSession();
+		$session->open();
 
-			// This will always be defined, because it is defined by getRecentSearches
-			// Push the new item onto the front of the array, to enforce ordering
-			array_unshift($searches, compact('start', 'end', 'extra'));
+		// If the search already exists, remove it from the list (we'll put it back on the front)
+		if ($searchIndex !== false)
+			unset($searches[$searchIndex]);
 
-			// If we have too many searches, trim off the old ones
-			$max = Yii::app()->params['maxRecentSearches'];
-			if (count($searches) > $max)
-				array_splice($searches, $max);
+		// Push the new item onto the front of the array, to enforce ordering
+		array_unshift($searches, compact('start', 'end', 'extra'));
 
-			$session[$this->searchesIndex] = $searches;
-			$session->close();
-		}
+		// If we have too many searches, trim off the old ones
+		$max = Yii::app()->params['maxRecentSearches'];
+		if (count($searches) > $max)
+			array_splice($searches, $max);
+
+		// Save the search back to the session
+		$session[$this->searchesIndex] = $searches;
+		$session->close();
 	}
 
 	/**
