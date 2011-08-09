@@ -66,10 +66,13 @@ Yii::app()->clientScript->registerScript(
 	$('#trigger').click(function(e){
 		var start = startLocs[ Math.floor(Math.random()*100) % startLocs.length ] + ', utah';
 		var end = endLocs[ Math.floor(Math.random()*100) % endLocs.length ] + ', utah';
+		var band = (Math.random() < .5)?\"144\" : \"440\";
+
 		if (console && console.log)
 		{
 			console.log('start locs:', startLocs, 'start', start);
 			console.log('end locs:', endLocs, 'end', end);
+			console.log('band:', band);
 		}
 
 		var trigger = $('#trigger');
@@ -80,19 +83,20 @@ Yii::app()->clientScript->registerScript(
 		logSearch(start, end);
 
 		// Draw our map
-		$('#repeaters').map('drawRoute', start, end);
+		$('#repeaters').map('drawRoute', start, end, band);
 	});
 
 	// Capture the form submission and use it
 	$('#locationForm').submit(function(){
 		var start = $('#FromLocation').first().val();
 		var end = $('#ToLocation').first().val();
+		var band = $('#band').first().val();
 
 		// Log the search
 		logSearch(start, end);
 
 		// Draw our map
-		$('#repeaters').map('drawRoute', start, end);
+		$('#repeaters').map('drawRoute', start, end, band);
 
 		// Always handle with ajax
 		return false;
@@ -134,8 +138,12 @@ function DivSwitch(obj,newdiv){
 <div style="position:absolute; top:300px; left:0px;">
   <div style="position:absolute; left:20px; top:20px; width:700px;">
     <form id="locationForm" action="" method="GET">
-      Start Location: <input type="text" name="fromLocation" id="FromLocation" style="width:220px;" />
-      Destination: <input type="text" name="toLocation" id="ToLocation" style="width:220px;" />
+      Start Location: <input type="text" name="fromLocation" id="FromLocation" style="width:180;" />
+      Destination: <input type="text" name="toLocation" id="ToLocation" style="width:180;" />
+      Band: <select name="band" id="band">
+				<option value="144">144</option>
+				<option value="440">440</option>
+			</select>
       <input type="submit" value="Search" />
     </form>
   </div>

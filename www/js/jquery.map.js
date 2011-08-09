@@ -2,6 +2,7 @@
 	
 	var map;
 	var box;
+	var repeaterBand;
 	var directionsDisplay = new google.maps.DirectionsRenderer({draggable:true});
 	var boxArray = [];
 	var latLngArray = [];
@@ -51,7 +52,8 @@
 		},
 
 		// draw route
-		drawRoute : function(start, end) {
+		drawRoute : function(start, end, band) {
+			repeaterBand = band;
 			// clear map
 			methods.clearMap();
 			// assign content box
@@ -90,7 +92,10 @@
 			$.ajax({
 				url: '/ajax/getRepeaters',
 				type: "POST",
-				data: {boxes: pathBoxes},
+				data: {
+					boxes: pathBoxes,
+					band: repeaterBand
+				},
 				dataType: 'json',
 				success: function(response) {
 					methods.parseRepeaters(response);
