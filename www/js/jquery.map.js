@@ -3,6 +3,7 @@
 	var map;
 	var box;
 	var repeaterBand;
+	var directionsPanel;
 	var directionsDisplay = new google.maps.DirectionsRenderer({draggable:true});
 	var boxArray = [];
 	var latLngArray = [];
@@ -13,8 +14,8 @@
 	var methods = {
 	
 		// draw map
-		init : function() {
-			//
+		init : function(directions) {
+			directionsPanel = directions;
 			var utah = new google.maps.LatLng(40.1135, -111.8535);
 			var myOptions = {
 				zoom:6,
@@ -25,6 +26,7 @@
 			// directions change
 			google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {  
 				methods.clearMap(true);  
+				directionsDisplay.setPanel(document.getElementById(directionsPanel));
 				methods.getRepeaters(directionsDisplay.getDirections().routes[0].overview_path);
 			});
 		},

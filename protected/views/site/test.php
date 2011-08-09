@@ -6,7 +6,7 @@ $this->pageTitle=Yii::app()->name;
 Yii::app()->clientScript->registerScript(
 'docready', 
 "$(document).ready(function(){
-	$('#map_canvas').map();
+	$('#map_canvas').map('init', 'Directions');
 
 	var displayRecentSearches = function(searches) {
 		var searchEl = $('#recentSearches');
@@ -24,7 +24,6 @@ Yii::app()->clientScript->registerScript(
         
 				main.click(function(){
 					// Change our map
-					alert(info.extra[0]);
 					$('#repeaters').map('drawRoute', info.start, info.end, info.extra[0]);
 				});
 			});
@@ -172,6 +171,6 @@ function DivSwitch(obj,newdiv){
   </div>
   <div id="folder" style="position:relative; top:50px; left:25px;">
     <div id="Repeaters" class="defaultDiv">Repeaters List</div>
-    <div id="Directions" style="display:none;">Directions</div>
+    <div id="Directions" style="display:none;"></div>
   </div>
 </div>
