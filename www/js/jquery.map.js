@@ -9,7 +9,7 @@
 	var latLngArray = [];
 	var markerArray = [];
 	var polygonArray = [];
-	var FILLOPACITY = 0;
+	var FILLOPACITY = .1;
 	
 	var methods = {
 	
@@ -141,7 +141,7 @@
 		},
 
 		// draw repeater (marker / info box / coverage polygon)
-		addRepeater: function(repeaterObj) {
+		addRepeater : function(repeaterObj) {
 			// marker
 			var myLatlng = new google.maps.LatLng(repeaterObj['location'][0]['lat'], repeaterObj['location'][0]['lon']);
 			markerArray[repeaterObj['id']] = new google.maps.Marker({
@@ -164,8 +164,9 @@
 			// coverage polygon
 			polygonArray[repeaterObj['id']] = new google.maps.Polygon({
 				fillColor : 'black', 
-				fillOpacity : FILLOPACITY, 
+				fillOpacity : 0, 
 				strokeWeight : 1,
+				strokeOpacity : 0,
 				clickable: false,
 				map: map,
 				paths: methods.makeMVCArray(repeaterObj['coverage'])
@@ -174,29 +175,35 @@
 			$(box).append("<div onclick=\"$().map('toggleRepeater', "+repeaterObj['id']+");\">" + contentString + "</div><br />");
 		},
 		
-		makeMVCArray: function(coverageObj) {
+		makeMVCArray : function(coverageObj) {
 			var points = new Array();
 			for (var i in coverageObj[0]) {
 				points.push(new google.maps.LatLng(coverageObj[0][i]['lat'], coverageObj[0][i]['lon']));
 			}
 			return points;
 		},
-						
-		toggleRepeater: function(id) {
-			if (markerArray[id].getVisible()) {
-				markerArray[id].setVisible(false);
-				polygonArray[id].setOptions({
-					fillOpacity : 0, 
-					strokeOpacity : 0
-				});
+		
+		showRepeater : function(id) {
+			polygonArray[id].setOptions({
+				fillOpacity : FILLOPACITY, 
+				strokeOpacity : 1
+			});
+			map.panTo(latLngArray[id]);
+		},
+
+		hideRepeater : function(id) {
+			polygonArray[id].setOptions({
+				fillOpacity : 0, 
+				strokeOpacity : 0
+			});
+		},
+		
+		toggleRepeater : function(id) {
+			if (polygonArray[id].strokeOpacity == 0) {
+				methods.showRepeater(id);
 			}
 			else {
-				markerArray[id].setVisible(true);
-				polygonArray[id].setOptions({
-					fillOpacity : FILLOPACITY, 
-					strokeOpacity : 1
-				});
-				map.panTo(latLngArray[id]);
+				methods.hideRepeater(id);
 			}
 		}
 		

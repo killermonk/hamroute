@@ -27,7 +27,7 @@ Yii::app()->clientScript->registerScript(
 					$('#FromLocation').val(info.start);
 					$('#ToLocation').val(info.end);
 					$('#band').val(info.extra[0]);
-					$('#repeaters').map('drawRoute', info.start, info.end, info.extra[0]);
+					$('#Repeaters').map('drawRoute', info.start, info.end, info.extra[0]);
 				});
 			});
 		}
@@ -89,7 +89,7 @@ Yii::app()->clientScript->registerScript(
 		logSearch(start, end, extra);
 
 		// Draw our map
-		$('#repeaters').map('drawRoute', start, end, band);
+		$('#Repeaters').map('drawRoute', start, end, band);
 	});
 
 	// Capture the form submission and use it
@@ -104,7 +104,7 @@ Yii::app()->clientScript->registerScript(
 		logSearch(start, end, extra);
 
 		// Draw our map
-		$('#repeaters').map('drawRoute', start, end, band);
+		$('#Repeaters').map('drawRoute', start, end, band);
 
 		// Always handle with ajax
 		return false;
@@ -114,12 +114,6 @@ CClientScript::POS_HEAD);
 
 ?>
 
-<div id="trigger">directions</div>
-<div style="float:right;">
-	<h3 style="margin-bottom: 5px;">Recent Searches</h3>
-	<div id="recentSearches">Loading...</div>
-</div>
-<div id="repeaters"></div>
 <script type="text/javascript">
 function DivSwitch(obj,newdiv){
 	if(document.getElementById){
@@ -156,8 +150,14 @@ function DivSwitch(obj,newdiv){
     </form>
   </div>
 
+  <div id="trigger">directions</div>
+
   <div style="position:absolute; left:20px; top:75px; background:url('/images/HAM-UI_04.png'); width:179px; height:286px;">
-    recent searches
+    <div style="float:right;">
+	<h3 style="margin-bottom: 5px;">Recent Searches</h3>
+	<div id="recentSearches">Loading...</div>
+</div>
+
   </div>
 
   <div id="map_canvas" style="position:absolute; width:424px; height:286px; left:200px; top:75px; background:url('/images/HAM-UI_05.png');">
@@ -173,7 +173,7 @@ function DivSwitch(obj,newdiv){
     <a href="javascript:DivSwitch('Directions','folder');">Directions</a>
   </div>
   <div id="folder" style="position:relative; top:50px; left:25px;">
-    <div id="Repeaters" class="defaultDiv">Repeaters List</div>
+    <div id="Repeaters" class="defaultDiv"></div>
     <div id="Directions" style="display:none;"></div>
   </div>
 </div>
