@@ -24,13 +24,14 @@ Yii::app()->clientScript->registerScript(
         
 				main.click(function(){
 					// Change our map
-					$('#repeaters').map('drawRoute', info.start, info.end);
+					alert(info.extra[0]);
+					$('#repeaters').map('drawRoute', info.start, info.end, info.extra[0]);
 				});
 			});
 		}
 	};
 
-	var logSearch = function(start, end) {
+	var logSearch = function(start, end, extra) {
 		// Log the search
 		$.ajax({
 			url: '/ajax/logSearch',
@@ -38,6 +39,7 @@ Yii::app()->clientScript->registerScript(
 			data: {
 				start: start,
 				end: end,
+				extra: extra
 			},
 			dataType: 'json',
 			success: function(response) {
@@ -67,7 +69,9 @@ Yii::app()->clientScript->registerScript(
 		var start = startLocs[ Math.floor(Math.random()*100) % startLocs.length ] + ', utah';
 		var end = endLocs[ Math.floor(Math.random()*100) % endLocs.length ] + ', utah';
 		var band = (Math.random() < .5)?\"144\" : \"440\";
-
+		var extra = [];
+			extra[0] = band;
+		
 		if (console && console.log)
 		{
 			console.log('start locs:', startLocs, 'start', start);
@@ -80,7 +84,7 @@ Yii::app()->clientScript->registerScript(
 		$('<span/>', {text: 'directions from ' + start + ' to ' + end}).appendTo(trigger);
 
 		// Log the search
-		logSearch(start, end);
+		logSearch(start, end, extra);
 
 		// Draw our map
 		$('#repeaters').map('drawRoute', start, end, band);
@@ -91,9 +95,11 @@ Yii::app()->clientScript->registerScript(
 		var start = $('#FromLocation').first().val();
 		var end = $('#ToLocation').first().val();
 		var band = $('#band').first().val();
+		var extra = [];
+			extra[0] = band;
 
 		// Log the search
-		logSearch(start, end);
+		logSearch(start, end, extra);
 
 		// Draw our map
 		$('#repeaters').map('drawRoute', start, end, band);
