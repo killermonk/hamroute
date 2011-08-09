@@ -145,11 +145,14 @@
 			markerArray[repeaterObj['id']] = new google.maps.Marker({
 				position: myLatlng,
 				map: map,
-				title: "title"
+				title: "Repeater " + repeaterObj['id']
 			});
 			latLngArray[repeaterObj['id']] = myLatlng;
 			// info box
-			var contentString = 'content';
+			var contentString = "<strong>Repeater " + repeaterObj['id'] + "</strong>" + " (" +
+								repeaterObj['location'][0]['lat'] + ", " + repeaterObj['location'][0]['lon'] + ")<br />" +
+								"Output frequency: " + repeaterObj['output'] + "<br />" +
+								"Input frequency: " + repeaterObj['input'] + "";
 			var infowindow = new google.maps.InfoWindow({
 				content: contentString
 			});
@@ -166,7 +169,7 @@
 				paths: methods.makeMVCArray(repeaterObj['coverage'])
 			});
 			// add toggle to box
-			$(box).append("<div onclick=\"$().map('toggleRepeater', "+repeaterObj['id']+");\">toggle "+repeaterObj['id']+"</div>");
+			$(box).append("<div onclick=\"$().map('toggleRepeater', "+repeaterObj['id']+");\">" + contentString + "</div><br />");
 		},
 		
 		makeMVCArray: function(coverageObj) {
