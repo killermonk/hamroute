@@ -24,6 +24,9 @@ Yii::app()->clientScript->registerScript(
         
 				main.click(function(){
 					// Change our map
+					$('#FromLocation').val(info.start);
+					$('#ToLocation').val(info.end);
+					$('#band').val(info.extra[0]);
 					$('#repeaters').map('drawRoute', info.start, info.end, info.extra[0]);
 				});
 			});
