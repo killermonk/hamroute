@@ -9,6 +9,7 @@
 	var latLngArray = [];
 	var markerArray = [];
 	var polygonArray = [];
+	var selectedRepeaters = [];
 	var FILLOPACITY = .1;
 	
 	var methods = {
@@ -160,6 +161,16 @@
 			});
 			// marker click
 			google.maps.event.addListener(markerArray[repeaterObj['id']], 'click', function() {
+				if(selectedRepeaters[repeaterObj['id']] != true){
+					selectedRepeaters[repeaterObj['id']] = true;
+					methods.showRepeater(repeaterObj['id']);
+				}
+				else {
+					selectedRepeaters[repeaterObj['id']] = false;
+				}
+			});
+			// marker rightclick
+			google.maps.event.addListener(markerArray[repeaterObj['id']], 'rightclick', function() {
 				infowindow.open(map,markerArray[repeaterObj['id']]);
 			});
 			// marker mouseover
@@ -168,7 +179,9 @@
 			});
 			// marker mouseout
 			google.maps.event.addListener(markerArray[repeaterObj['id']], 'mouseout', function() {
-				methods.hideRepeater(repeaterObj['id']);
+				if(selectedRepeaters[repeaterObj['id']] != true){
+					methods.hideRepeater(repeaterObj['id']);
+				}
 			});
 			// coverage polygon
 			polygonArray[repeaterObj['id']] = new google.maps.Polygon({
