@@ -2,6 +2,12 @@
 // title
 $this->pageTitle=Yii::app()->name;
 
+// sample css for designating selected repeaters
+Yii::app()->clientScript->registerCss(
+'selectedRepeaters',
+'.selectedRepeater {background-color: #CFDAFF;}'
+);
+
 // header js
 Yii::app()->clientScript->registerScript(
 'docready', 

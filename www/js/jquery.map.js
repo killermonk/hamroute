@@ -51,6 +51,7 @@
 			// empty arrays
 			markerArray.length = 0;
 			polygonArray.length = 0;
+			selectedRepeaters.length = 0;
 			latLngArray.length = 0;
 		},
 
@@ -161,13 +162,7 @@
 			});
 			// marker click
 			google.maps.event.addListener(markerArray[repeaterObj['id']], 'click', function() {
-				if(selectedRepeaters[repeaterObj['id']] != true){
-					selectedRepeaters[repeaterObj['id']] = true;
-					methods.showRepeater(repeaterObj['id']);
-				}
-				else {
-					selectedRepeaters[repeaterObj['id']] = false;
-				}
+				methods.repeaterClick(repeaterObj['id']);
 			});
 			// marker rightclick
 			google.maps.event.addListener(markerArray[repeaterObj['id']], 'rightclick', function() {
@@ -175,17 +170,15 @@
 			});
 			// marker mouseover
 			google.maps.event.addListener(markerArray[repeaterObj['id']], 'mouseover', function() {
-				methods.showRepeater(repeaterObj['id']);
+				methods.repeaterMouseover(repeaterObj['id']);
 			});
 			// marker mouseout
 			google.maps.event.addListener(markerArray[repeaterObj['id']], 'mouseout', function() {
-				if(selectedRepeaters[repeaterObj['id']] != true){
-					methods.hideRepeater(repeaterObj['id']);
-				}
+				methods.repeaterMouseout(repeaterObj['id']);
 			});
 			// coverage polygon
 			polygonArray[repeaterObj['id']] = new google.maps.Polygon({
-				fillColor : 'black', 
+				fillColor : 'blue', 
 				fillOpacity : 0, 
 				strokeWeight : 1,
 				strokeOpacity : 0,
@@ -194,7 +187,30 @@
 				paths: methods.makeMVCArray(repeaterObj['coverage'])
 			});
 			// add toggle to box
-			$(box).append("<div onclick=\"$().map('toggleRepeater', "+repeaterObj['id']+");\">" + contentString + "</div><br />");
+			$(box).append("<div id=\""+repeaterObj['id']+"\" onclick=\"$().map('repeaterClick', "+repeaterObj['id']+");\" onmouseover=\"$().map('repeaterMouseover', "+repeaterObj['id']+");\" onmouseout=\"$().map('repeaterMouseout', "+repeaterObj['id']+");\">" + contentString + "</div><br />");
+		},
+		
+		repeaterClick : function(id) {
+			if(selectedRepeaters[id] != true){
+				selectedRepeaters[id] = true;
+				methods.showRepeater(id);
+				$(document.getElementById(id)).addClass("selectedRepeater");
+			}
+			else {
+				selectedRepeaters[id] = false;
+				methods.hideRepeater(id);
+				$(document.getElementById(id)).removeClass("selectedRepeater");
+			}
+		},
+		
+		repeaterMouseover : function(id) {
+			methods.showRepeater(id);
+		},
+		
+		repeaterMouseout : function(id) {
+			if(selectedRepeaters[id] != true){
+				methods.hideRepeater(id);
+			}
 		},
 		
 		makeMVCArray : function(coverageObj) {
