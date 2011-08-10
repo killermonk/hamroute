@@ -205,11 +205,13 @@
 		
 		repeaterMouseover : function(id) {
 			methods.showRepeater(id);
+			$(document.getElementById(id)).addClass("selectedRepeater");
 		},
 		
 		repeaterMouseout : function(id) {
 			if(selectedRepeaters[id] != true){
 				methods.hideRepeater(id);
+				$(document.getElementById(id)).removeClass("selectedRepeater");
 			}
 		},
 		
