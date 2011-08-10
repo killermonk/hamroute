@@ -156,7 +156,8 @@
 			var contentString = "<strong>Repeater " + repeaterObj['id'] + "</strong>" + " (" +
 								repeaterObj['location'][0]['lat'] + ", " + repeaterObj['location'][0]['lon'] + ")<br />" +
 								"Output frequency: " + repeaterObj['output'] + "<br />" +
-								"Input frequency: " + repeaterObj['input'] + "";
+								"Input frequency: " + repeaterObj['input'] + "<br />" +
+								"CTCSS tone: " + repeaterObj['ctcss_in'] + "";
 			var infowindow = new google.maps.InfoWindow({
 				content: contentString
 			});

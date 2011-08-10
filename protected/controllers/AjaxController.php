@@ -122,7 +122,8 @@ class AjaxController extends Controller
 				'coverage' => $repeater->getCoveragePolygon()->getCoords(),
 				'band' => $repeater->band,
 				'output' => $repeater->output_freq,
-				'input' => $repeater->input_freq
+				'input' => $repeater->input_freq,
+				'ctcss_in' => $repeater->ctcss_in
 			);
 			$i++;
 		}
