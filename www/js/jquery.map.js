@@ -158,8 +158,17 @@
 			var infowindow = new google.maps.InfoWindow({
 				content: contentString
 			});
+			// marker click
 			google.maps.event.addListener(markerArray[repeaterObj['id']], 'click', function() {
 				infowindow.open(map,markerArray[repeaterObj['id']]);
+			});
+			// marker mouseover
+			google.maps.event.addListener(markerArray[repeaterObj['id']], 'mouseover', function() {
+				methods.showRepeater(repeaterObj['id']);
+			});
+			// marker mouseout
+			google.maps.event.addListener(markerArray[repeaterObj['id']], 'mouseout', function() {
+				methods.hideRepeater(repeaterObj['id']);
 			});
 			// coverage polygon
 			polygonArray[repeaterObj['id']] = new google.maps.Polygon({
@@ -183,12 +192,15 @@
 			return points;
 		},
 		
-		showRepeater : function(id) {
-			polygonArray[id].setOptions({
+		showRepeater : function(id, doPan) {
+				doPan = typeof(doPan) != 'undefined' ? doPan : false;
+				polygonArray[id].setOptions({
 				fillOpacity : FILLOPACITY, 
 				strokeOpacity : 1
 			});
-			map.panTo(latLngArray[id]);
+			if(doPan == true){
+				map.panTo(latLngArray[id]);
+			}
 		},
 
 		hideRepeater : function(id) {
