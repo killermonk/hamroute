@@ -170,13 +170,13 @@ CClientScript::POS_HEAD);
 
   </div>
 
-  <div id="map_canvas" style="position:relative; top:32px; left:5px; height:320px; width: 500px; background:url('/images/HAM-UI_05.png');">
+  <div id="map_canvas" style="position:relative; top:31px; left:5px; height:320px; width: 500px; background:url('/images/HAM-UI_05.png');">
     map canvas
   </div>
 </div>
 
 <div style="position:relative; left:20px; top:30px; width:603px; height:434px; background:url('/images/HAM-UI_06.png') no-repeat center;">
-  <div style="font-weight:bold; background: url('/images/LeftBtnOn.png') no-repeat 0px 0px;">
+  <div style="font-weight:bold; background: url('/images/LeftBtnOn.png') no-repeat 0px 10px;">
     <a href="javascript:DivSwitch('Repeaters','folder');">Repeaters</a>
   </div>
   <div style="position:relative; top:0px; left:170px; font-weight:bold; background: url('/images/RightBtnOn.png') no-repeat top left;">
