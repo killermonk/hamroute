@@ -148,7 +148,7 @@ CClientScript::POS_HEAD);
 <div onclick="$().map('toggleUnusedRepeaters');">toggle unused repeaters</div>
 <div id="trigger">directions</div>
 
-<div style="position:relative; top:300px; left:0px;">
+<div style="position:relative; top:0px; left:0px;">
   <div style="position:relative; left:20px; top:20px; width:700px;">
     <form id="locationForm" action="" method="GET">
       Start Location: <input type="text" name="fromLocation" id="FromLocation" style="width:180;" />
@@ -162,7 +162,7 @@ CClientScript::POS_HEAD);
   </div>
 
 
-  <div style="position:relative; left:20px; top:75px; background:url('/images/HAM-UI_04.png'); width:179px; height:286px;">
+  <div style="position:relative; left:20px; top:0px; background:url('/images/HAM-UI_04.png'); width:179px; height:286px;">
     <div style="float:right;">
       <h3 style="margin: 15px 15px 5px 0;">Recent Searches</h3>
       <div id="recentSearches">Loading...</div>
@@ -170,7 +170,7 @@ CClientScript::POS_HEAD);
 
   </div>
 
-  <div id="map_canvas" style="position:relative; width:424px; height:286px; left:200px; top:75px; background:url('/images/HAM-UI_05.png');">
+  <div id="map_canvas" style="position:relative; width:424px; height:286px; left:200px; top:0px; background:url('/images/HAM-UI_05.png');">
     map canvas
   </div>
 </div>
