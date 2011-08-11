@@ -132,7 +132,7 @@
 		getRepeaters : function(pathBoxes)
 		{
 			// show loading
-			$(box).append('<div id="loading"><img src=\"/images/ajax-loader.gif\" style=\"margin-left:40%;margin-top:20px;\" /></div>');
+			$(box).append('<div id="loading"><img src=\"/images/ajax-loader.gif\" style=\"margin-left:50%;margin-top:20px;\" /></div>');
 			// get repeaters
 			$.ajax({
 				url: '/ajax/getRepeaters',
@@ -238,7 +238,7 @@
 				paths: methods.makeMVCArray(repeaterObj['coverage'])
 			});
 			// add toggle to box
-			$(box).append("<div id=\""+repeaterObj['id']+"\" onclick=\"$().map('repeaterClick', "+repeaterObj['id']+");\" onmouseover=\"$().map('repeaterMouseover', "+repeaterObj['id']+");\" onmouseout=\"$().map('repeaterMouseout', "+repeaterObj['id']+");\">" + summaryContentString + "<br /></div>");
+			$(box).append("<div id=\""+repeaterObj['id']+"\" onclick=\"$().map('repeaterClick', "+repeaterObj['id']+");\" onmouseover=\"$().map('repeaterMouseover', "+repeaterObj['id']+");\" onmouseout=\"$().map('repeaterMouseout', "+repeaterObj['id']+");\" class=\"allRepeaters\">" + summaryContentString + "<br /></div>");
 		},
 		
 		/**
