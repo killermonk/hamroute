@@ -164,13 +164,13 @@ CClientScript::POS_HEAD);
 
   <div style="float:left; margin-top: 25px; background:url('/images/HAM-UI_04.png'); width:179px; height:286px;">
     <div style="float:right;">
-      <h3 style="margin: 15px 15px 5px 0;">Recent Searches</h3>
-      <div id="recentSearches">Loading...</div>
+      <h3 style="margin: 15px 15px 5px 0px;">Recent Searches</h3>
+      <div id="recentSearches" style="margin: 0px;">Loading...</div>
     </div>
 
   </div>
 
-  <div id="map_canvas" style="position:relative; top:28px; left:0px; height:386px; background:url('/images/HAM-UI_05.png');">
+  <div id="map_canvas" style="position:relative; top:28px; left:0px; height:386px; width: 450px; background:url('/images/HAM-UI_05.png');">
     map canvas
   </div>
 </div>
