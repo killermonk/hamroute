@@ -122,27 +122,27 @@ CClientScript::POS_HEAD);
 ?>
 
 <script type="text/javascript">
-  function DivSwitch(obj,newdiv){
-  if(document.getElementById){
-  var el = $('#'+obj).first(); //document.getElementById(obj);
-  var ar = $('#'+newdiv+' > div'); //document.getElementById(newdiv).getElementsByTagName('div');
-  var def = $('.defaultDiv').first(); //document.getElementById('defaultDiv');
-  //if(el.style.display == 'none'){
-  if (el.css('display') == 'none'){
-  for (var i=0; i<ar.length; i=""++){
-				//ar[i].style.display = 'none';
-  $(ar[i]).css('display', 'none');
-  }
-  //el.style.display = 'block';
-  el.css('display', 'block');
-  }else{
-  //el.style.display = '';
-  el.css('display', '');
-  //def.style.display = 'block';
-  def.css('display', 'block');
-  }
-  }
-  }
+	function DivSwitch(obj,newdiv){
+		if(document.getElementById){
+			var el = $('#'+obj).first(); //document.getElementById(obj);
+			var ar = $('#'+newdiv+' > div'); //document.getElementById(newdiv).getElementsByTagName('div');
+			var def = $('.defaultDiv').first(); //document.getElementById('defaultDiv');
+			//if(el.style.display == 'none'){
+			if (el.css('display') == 'none'){
+				for (var i=0; i<ar.length; i++){
+					//ar[i].style.display = 'none';
+					$(ar[i]).css('display', 'none');
+				}
+				//el.style.display = 'block';
+				el.css('display', 'block');
+			}else{
+				//el.style.display = '';
+				el.css('display', '');
+				//def.style.display = 'block';
+				def.css('display', 'block');
+			}
+		}
+	}
 </script>
 <div onclick="$().map('toggleBoxes');">toggle route bounding boxes (for demo)</div>
 <div onclick="$().map('toggleUnusedRepeaters');">toggle unused repeaters</div>
@@ -154,8 +154,8 @@ CClientScript::POS_HEAD);
       Start Location: <input type="text" name="fromLocation" id="FromLocation" style="width:180;" />
       Destination: <input type="text" name="toLocation" id="ToLocation" style="width:180;" />
       Band: <select name="band" id="band">
-        <option value="144">144</option>
-        <option value="440">440</option>
+        <option value="144">2m</option>
+        <option value="440">70cm</option>
       </select>
       <input type="submit" value="Search" />
     </form>
