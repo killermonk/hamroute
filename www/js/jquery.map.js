@@ -15,8 +15,17 @@
 	
 	var methods = {
 	
-		// draw map
-		init : function(directions) {
+		/*****************
+		 * basic map functionality
+		 *****************/
+
+		/**
+		 * constuctor: create google map and center on utah;
+		 * create listener to detect route changes
+		 * @param string directions: the div id where we send driving directions
+		 */
+		init : function(directions)
+		{
 			directionsPanel = directions;
 			var utah = new google.maps.LatLng(40.1135, -111.8535);
 			var myOptions = {
@@ -29,11 +38,16 @@
 			google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {  
 				methods.clearMap(true);  
 				directionsDisplay.setPanel(document.getElementById(directionsPanel));
-				methods.getRepeaters(directionsDisplay.getDirections().routes[0].overview_path);
+				methods.buildBoxes(directionsDisplay.getDirections().routes[0].overview_path);
 			});
 		},
 		
-		clearMap : function(leavePath) {
+		/**
+		 * clear google map of all objects;
+		 * @param bool leavePath: if true, remove all objects except the route
+		 */
+		clearMap : function(leavePath) 
+		{
 			leavePath = typeof(leavePath) != 'undefined' ? leavePath : false;
 			// empty box
 			$(box).empty();
@@ -56,8 +70,19 @@
 			latLngArray.length = 0;
 		},
 
-		// draw route
-		drawRoute : function(start, end, band) {
+		/*****************
+		 * route creation / manipulation
+		 *****************/
+
+		 /**
+		 * draw the driving route on the google map;
+		 * @param string start: start location
+		 * @param string end: end location
+		 * @param int band: search for repeaters along given band; assume null as all bands
+		 */
+		drawRoute : function(start, end, band)
+		{
+			band = typeof(band) != 'undefined' ? band : null;
 			repeaterBand = band;
 			// clear map
 			methods.clearMap();
@@ -78,19 +103,34 @@
 			});
 		},
 		
-		// get repeaters (ajax)
-		getRepeaters : function(polyLine) {
+		 /**
+		 * build boxes along given path
+		 * @param Array.<LatLng> polyLine: array of LatLngs representing a route
+		 */
+		buildBoxes : function(polyLine)
+		{
 			// turn polyLine into array of rectangles
 			var routeBoxer = new RouteBoxer();
 			var boxes = routeBoxer.box(polyLine, 1);
 			methods.drawBoxes(boxes);
 
 			var pathBoxes = [];
-			for (var i=0; i<boxes.length; i++)
-			{
+			for (var i=0; i<boxes.length; i++) {
 				pathBoxes.push(boxes[i].toUrlValue().split(','));
 			}
-			
+			methods.getRepeaters(pathBoxes);
+		},
+		
+		/*****************
+		 * ajax
+		 *****************/
+
+		/**
+		 * send boxes along path to AjaxController
+		 * @param array pathBoxes: array of LatLngs representing boxes along route
+		 */
+		getRepeaters : function(pathBoxes)
+		{
 			// show loading
 			$(box).append('<div id="loading">Loading</div>');
 			// get repeaters
@@ -106,52 +146,14 @@
 					methods.parseRepeaters(response);
 				}
 			});
-		},
-		
-		// temp function to show new bounding boxes
-		drawBoxes : function(boxes) {
-			boxArray = Array(boxes.length);
-			for (var i = 0; i < boxes.length; i++) {
-				boxArray[i] = new google.maps.Rectangle({
-				bounds: boxes[i],
-				fillOpacity: 0,
-				strokeOpacity: 1.0,
-				strokeColor: '#000000',
-				strokeWeight: 1,
-				clickable: false,
-				map: map
-			});
-			}
-		},
-		
-		// temp function to clean up drawBoxes
-		clearBoxes : function() {
-			if (boxArray != null) {
-				for (var i = 0; i < boxArray.length; i++) {
-					boxArray[i].setMap(null);
-				}
-			}
-			boxArray = null;
-		},
-		
-		// temp toggle boxes (for demo)
-		toggleBoxes : function() {
-			if (boxArray[0].strokeOpacity != 0) {
-				var boxStrokeOpacity = 0;
-			}
-			else {
-				var boxStrokeOpacity = 1;
-			}
-			for (var i in boxArray) {
-				boxArray[i].setOptions({
-					strokeOpacity: boxStrokeOpacity,
-				});
-			}
-		},
-		
+		},		
 
-		// add repeater for each object
-		parseRepeaters : function(repeatersObj) {
+		/**
+		 * feed json from AjaxController to addRepeater one repeter at a time
+		 * @param object repeatersObj: object containing all repeaters along route
+		 */
+		parseRepeaters : function(repeatersObj)
+		{
 			// remove loading
 			$('div').remove('#loading');
 			for (var i in repeatersObj) {
@@ -159,8 +161,17 @@
 			}
 		},
 
-		// draw repeater (marker / info box / coverage polygon)
-		addRepeater : function(repeaterObj) {
+		/*****************
+		 * repeater creation / management
+		 *****************/
+
+		/**
+		 * draws repeaters, polygons and infowindows
+		 * creates associated events
+		 * @param object repeatersObj: object containing 1 repeater along route
+		 */
+		addRepeater : function(repeaterObj)
+		{
 			// marker
 			var myLatlng = new google.maps.LatLng(repeaterObj['location'][0]['lat'], repeaterObj['location'][0]['lon']);
 			markerArray[repeaterObj['id']] = new google.maps.Marker({
@@ -212,7 +223,26 @@
 			$(box).append("<div id=\""+repeaterObj['id']+"\" onclick=\"$().map('repeaterClick', "+repeaterObj['id']+");\" onmouseover=\"$().map('repeaterMouseover', "+repeaterObj['id']+");\" onmouseout=\"$().map('repeaterMouseout', "+repeaterObj['id']+");\">" + contentString + "<br /></div>");
 		},
 		
-		repeaterClick : function(id) {
+		/**
+		 * converts polygon into google readable MVCArray
+		 * @param object coverageObj: object containing polygon paths
+		 * @return MVCArray points: google readable polygon array
+		 */
+		makeMVCArray : function(coverageObj)
+		{
+			var points = new Array();
+			for (var i in coverageObj[0]) {
+				points.push(new google.maps.LatLng(coverageObj[0][i]['lat'], coverageObj[0][i]['lon']));
+			}
+			return points;
+		},
+
+		/**
+		 * select / deselect repeater on map or in list
+		 * @param int id: unique identifier for repeater
+		 */
+		repeaterClick : function(id)
+		{
 			if(selectedRepeaters[id] != true){
 				selectedRepeaters[id] = true;
 				methods.showRepeater(id);
@@ -225,19 +255,66 @@
 			}
 		},
 		
-		repeaterMouseover : function(id) {
+		/**
+		 * highlight repeater on map or in list
+		 * @param int id: unique identifier for repeater
+		 */
+		repeaterMouseover : function(id)
+		{
 			methods.showRepeater(id);
 			$(document.getElementById(id)).addClass("selectedRepeater");
 		},
 		
-		repeaterMouseout : function(id) {
+		/**
+		 * unhighlight repeater on map or in list
+		 * @param int id: unique identifier for repeater
+		 */
+		repeaterMouseout : function(id)
+		{
 			if(selectedRepeaters[id] != true){
 				methods.hideRepeater(id);
 				$(document.getElementById(id)).removeClass("selectedRepeater");
 			}
 		},
-		
-		toggleUnusedRepeaters : function() {
+						
+		/**
+		 * basic repeater visibility: true
+		 * @param int id: unique identifier for repeater
+		 * @param bool doPan: if true, pan map to center on shown repeater
+		 */
+		showRepeater : function(id, doPan)
+		{
+				doPan = typeof(doPan) != 'undefined' ? doPan : false;
+				polygonArray[id].setOptions({
+				fillOpacity : FILLOPACITY, 
+				strokeOpacity : 1
+			});
+			if(doPan == true){
+				map.panTo(latLngArray[id]);
+			}
+		},
+
+		/**
+		 * basic repeater visibility: false
+		 * @param int id: unique identifier for repeater
+		 */
+		hideRepeater : function(id)
+		{
+			polygonArray[id].setOptions({
+				fillOpacity : 0, 
+				strokeOpacity : 0
+			});
+		},
+						
+		/*****************
+		 * manage unused repeaters
+		 *****************/
+
+		/**
+		 * toggle unused repeater visibility
+		 */
+		toggleUnusedRepeaters : function()
+		{
 			if(hiddenRepeaters == true) {
 				hiddenRepeaters = false;
 				methods.showUnusedRepeaters();
@@ -248,7 +325,11 @@
 			}
 		},
 		
-		hideUnusedRepeaters : function() {
+		/**
+		 * basic repeater (list & marker) visibility: set hidden
+		 */
+		hideUnusedRepeaters : function()
+		{
 			for (var i in markerArray) {
 				markerArray[i].setVisible(false);
 				$(document.getElementById(i)).addClass("makeInvisible");
@@ -261,45 +342,70 @@
 			}
 		},
 		
-		showUnusedRepeaters : function() {
+		/**
+		 * basic repeater (list & marker) visibility: set visible
+		 */
+		showUnusedRepeaters : function()
+		{
 			for (var i in markerArray) {
 				markerArray[i].setVisible(true);
 				$(document.getElementById(i)).removeClass("makeInvisible");
 			}
 		},
-		
-		makeMVCArray : function(coverageObj) {
-			var points = new Array();
-			for (var i in coverageObj[0]) {
-				points.push(new google.maps.LatLng(coverageObj[0][i]['lat'], coverageObj[0][i]['lon']));
+
+		/*****************
+		 * temporary route bounding boxes (for demo)
+		 *****************/
+
+		/**
+		 * draw route bounding boxes on map / hide them
+		 * @param array boxes: array of rectangles to draw on map
+		 */
+		drawBoxes : function(boxes)
+		{
+			boxArray = Array(boxes.length);
+			for (var i = 0; i < boxes.length; i++) {
+				boxArray[i] = new google.maps.Rectangle({
+					bounds: boxes[i],
+					fillOpacity: 0,
+					strokeOpacity: 1.0,
+					strokeColor: '#000000',
+					strokeWeight: 1,
+					clickable: false,
+					map: map
+				});
 			}
-			return points;
-		},
-		
-		showRepeater : function(id, doPan) {
-				doPan = typeof(doPan) != 'undefined' ? doPan : false;
-				polygonArray[id].setOptions({
-				fillOpacity : FILLOPACITY, 
-				strokeOpacity : 1
-			});
-			if(doPan == true){
-				map.panTo(latLngArray[id]);
-			}
+			methods.toggleBoxes();
 		},
 
-		hideRepeater : function(id) {
-			polygonArray[id].setOptions({
-				fillOpacity : 0, 
-				strokeOpacity : 0
-			});
+		/**
+		 * remove route bounding boxes from map
+		 */
+		clearBoxes : function()
+		{
+			if (boxArray != null) {
+				for (var i = 0; i < boxArray.length; i++) {
+					boxArray[i].setMap(null);
+				}
+			}
+			boxArray = null;
 		},
 		
-		toggleRepeater : function(id) {
-			if (polygonArray[id].strokeOpacity == 0) {
-				methods.showRepeater(id);
+		/**
+		 * toggle visibility on route bounding boxes
+		 */
+		toggleBoxes : function()
+		{
+			if (boxArray[0].strokeOpacity != 0) {
+				var boxStrokeOpacity = 0;
 			}
 			else {
-				methods.hideRepeater(id);
+				var boxStrokeOpacity = 1;
+			}
+			for (var i in boxArray) {
+				boxArray[i].setOptions({
+					strokeOpacity: boxStrokeOpacity,
+				});
 			}
 		}
 		
