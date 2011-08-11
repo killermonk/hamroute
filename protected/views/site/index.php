@@ -88,6 +88,11 @@ Yii::app()->clientScript->registerScript(
 			console.log('band:', band);
 		}
 
+		// move directions to form
+		$('#FromLocation').val(start);
+		$('#ToLocation').val(end);
+		$('#band').val(band);
+
 		var trigger = $('#trigger');
 		trigger.html('');
 		$('<span/>', {text: 'directions from ' + start + ' to ' + end}).appendTo(trigger);
