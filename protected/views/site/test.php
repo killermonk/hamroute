@@ -5,7 +5,8 @@ $this->pageTitle=Yii::app()->name;
 // sample css for designating selected repeaters
 Yii::app()->clientScript->registerCss(
 'selectedRepeaters',
-'.selectedRepeater {background-color: #CFDAFF;}'
+'.selectedRepeater {background-color:#CFDAFF;}
+.makeInvisible {display:none;}'
 );
 
 // header js
@@ -143,6 +144,8 @@ function DivSwitch(obj,newdiv){
 	}
 }
 </script>
+  <div onclick="$().map('toggleUnusedRepeaters');">toggle unused repeaters</div>
+  <div id="trigger">directions</div>
 <div style="position:absolute; top:300px; left:0px;">
   <div style="position:absolute; left:20px; top:20px; width:700px;">
     <form id="locationForm" action="" method="GET">
@@ -156,7 +159,6 @@ function DivSwitch(obj,newdiv){
     </form>
   </div>
 
-  <div id="trigger">directions</div>
 
   <div style="position:absolute; left:20px; top:75px; background:url('/images/HAM-UI_04.png'); width:179px; height:286px;">
     <div style="float:right;">

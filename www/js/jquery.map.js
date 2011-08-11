@@ -5,6 +5,7 @@
 	var repeaterBand;
 	var directionsPanel;
 	var directionsDisplay = new google.maps.DirectionsRenderer({draggable:true});
+	var hiddenRepeaters = false;
 	var boxArray = [];
 	var latLngArray = [];
 	var markerArray = [];
@@ -153,11 +154,15 @@
 			});
 			latLngArray[repeaterObj['id']] = myLatlng;
 			// info box
+			var ctcssString = "";
+			if (repeaterObj['ctcss_in']) {
+				ctcssString = "<br />CTCSS tone: " + repeaterObj['ctcss_in'];
+			}
 			var contentString = "<strong>Repeater " + repeaterObj['id'] + "</strong>" + " (" +
 								repeaterObj['location'][0]['lat'] + ", " + repeaterObj['location'][0]['lon'] + ")<br />" +
 								"Output frequency: " + repeaterObj['output'] + "<br />" +
-								"Input frequency: " + repeaterObj['input'] + "<br />" +
-								"CTCSS tone: " + repeaterObj['ctcss_in'] + "";
+								"Input frequency: " + repeaterObj['input'] +
+								ctcssString;
 			var infowindow = new google.maps.InfoWindow({
 				content: contentString
 			});
@@ -188,7 +193,7 @@
 				paths: methods.makeMVCArray(repeaterObj['coverage'])
 			});
 			// add toggle to box
-			$(box).append("<div id=\""+repeaterObj['id']+"\" onclick=\"$().map('repeaterClick', "+repeaterObj['id']+");\" onmouseover=\"$().map('repeaterMouseover', "+repeaterObj['id']+");\" onmouseout=\"$().map('repeaterMouseout', "+repeaterObj['id']+");\">" + contentString + "</div><br />");
+			$(box).append("<div id=\""+repeaterObj['id']+"\" onclick=\"$().map('repeaterClick', "+repeaterObj['id']+");\" onmouseover=\"$().map('repeaterMouseover', "+repeaterObj['id']+");\" onmouseout=\"$().map('repeaterMouseout', "+repeaterObj['id']+");\">" + contentString + "<br /></div>");
 		},
 		
 		repeaterClick : function(id) {
@@ -213,6 +218,37 @@
 			if(selectedRepeaters[id] != true){
 				methods.hideRepeater(id);
 				$(document.getElementById(id)).removeClass("selectedRepeater");
+			}
+		},
+		
+		toggleUnusedRepeaters : function() {
+			if(hiddenRepeaters == true) {
+				hiddenRepeaters = false;
+				methods.showUnusedRepeaters();
+			}
+			else {
+				hiddenRepeaters = true;
+				methods.hideUnusedRepeaters();
+			}
+		},
+		
+		hideUnusedRepeaters : function() {
+			for (var i in markerArray) {
+				markerArray[i].setVisible(false);
+				$(document.getElementById(i)).addClass("makeInvisible");
+			}
+			for (var i in selectedRepeaters) {
+				if (selectedRepeaters[i] == true) {
+					markerArray[i].setVisible(true);
+					$(document.getElementById(i)).removeClass("makeInvisible");
+				}
+			}
+		},
+		
+		showUnusedRepeaters : function() {
+			for (var i in markerArray) {
+				markerArray[i].setVisible(true);
+				$(document.getElementById(i)).removeClass("makeInvisible");
 			}
 		},
 		
