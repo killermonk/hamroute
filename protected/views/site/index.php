@@ -179,8 +179,8 @@ CClientScript::POS_HEAD);
   <div style="position:relative; left:0px; top:0px; width:167px; height:28px; font-weight:bold; background: url('/images/LeftBtnOn.png') no-repeat;">       
     <a href="javascript:DivSwitch('Repeaters','folder'); margin-left:30px;">Repeaters</a>
   </div>
-  <div style="position:relative; top:-30px; left:165px; width:126px; height:28px; font-weight:bold; background: url('/images/RightBtnOn.png') no-repeat top left;">
-    <a href="javascript:DivSwitch('Directions','folder');">Directions</a>
+  <div style="position:relative; top:-28px; left:166px; width:126px; height:28px; font-weight:bold; background: url('/images/RightBtnOn.png') no-repeat top left;">
+    <a href="javascript:DivSwitch('Directions','folder'); margin-left:15px;">Directions</a>
   </div>
   <div id="folder" style="position:relative; top:10px; left:25px; width:530px; height:355px; overflow:auto;">
     <div id="Repeaters" class="defaultDiv"></div>
