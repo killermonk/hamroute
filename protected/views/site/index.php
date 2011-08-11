@@ -176,14 +176,14 @@ CClientScript::POS_HEAD);
 </div>
 
 <div style="position:relative; left:20px; top:50px; width:603px; height:434px; background:url('/images/HAM-UI_06.png') no-repeat center;">
-  <div style="position:relative; top:0px; left:0px; font-weight:bold; background: url('/images/LeftBtnOn.png') no-repeat top left;">
+  <div style="position:relative; top:0px; left:0px; font-weight:bold; background: url('/images/LeftBtnOn.png') no-repeat 50px left;">
     <a href="javascript:DivSwitch('Repeaters','folder');">Repeaters</a>
   </div>
-  <div style="position:relative; top:0px; left:150px; font-weight:bold; background: url('/images/RightBtnOn.png') no-repeat top left;">
+  <div style="position:relative; top:0px; left:170px; font-weight:bold; background: url('/images/RightBtnOn.png') no-repeat top left;">
     <a href="javascript:DivSwitch('Directions','folder');">Directions</a>
   </div>
   <div id="folder" style="position:relative; top:50px; left:25px;">
-    <div id="Repeaters" class="defaultDiv"></div>
-    <div id="Directions" style="display:none;"></div>
+    <div id="Repeaters" class="defaultDiv">repeater</div>
+    <div id="Directions" style="display:none;">direction</div>
   </div>
 </div>
