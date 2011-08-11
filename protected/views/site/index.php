@@ -162,7 +162,7 @@ CClientScript::POS_HEAD);
   </div>
 
 
-  <div style="position:relative; left:20px; top:20px; background:url('/images/HAM-UI_04.png'); width:179px; height:286px;">
+  <div style="position:relative; left:20px; top:20px; background:url('/images/HAM-UI_04.png'); width:229px; height:286px;">
     <div style="float:right;">
       <h3 style="margin: 15px 15px 5px 0;">Recent Searches</h3>
       <div id="recentSearches">Loading...</div>
@@ -170,12 +170,12 @@ CClientScript::POS_HEAD);
 
   </div>
 
-  <div id="map_canvas" style="position:relative; width:424px; height:286px; left:200px; top:-276px; background:url('/images/HAM-UI_05.png');">
+  <div id="map_canvas" style="position:relative; width:424px; height:286px; left:250px; top:-266px; background:url('/images/HAM-UI_05.png');">
     map canvas
   </div>
 </div>
 
-<div style="position:relative; left:20px; top:675px; width:603px; height:434px; background:url('/images/HAM-UI_06.png') no-repeat center;">
+<div style="position:relative; left:20px; top:0px; width:603px; height:434px; background:url('/images/HAM-UI_06.png') no-repeat center;">
   <div style="position:relative; top:0px; left:0px; font-weight:bold; background: url('/images/LeftBtnOn.png') no-repeat top left;">
     <a href="javascript:DivSwitch('Repeaters','folder');">Repeaters</a>
   </div>
