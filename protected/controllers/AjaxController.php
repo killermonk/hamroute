@@ -116,6 +116,16 @@ class AjaxController extends Controller
 			// Flag this repeater as used
 			$usedRepeaters[$rptrId] = true;
 
+			// Get our repeater location from our import_data
+			$location_str = null;
+			if ($repeater->import_data)
+			{
+				// Supress any error output since this is an ajax call
+				$import_data = @json_decode($repeater->import_data, true);
+				if ($import_data !== null && isset($import_data['location']))
+					$location_str = trim($import_data['location']);
+			}
+
 			$repeaters[$i] = array(
 				'id' => $i,
 				'location' => $repeater->getLocationPoint()->getCoords(),
@@ -123,7 +133,9 @@ class AjaxController extends Controller
 				'band' => $repeater->band,
 				'output' => $repeater->output_freq,
 				'input' => $repeater->input_freq,
-				'ctcss_in' => $repeater->ctcss_in
+				'offset' => ($repeater->output_freq < $repeater->input_freq) ? '+' : '-',
+				'ctcss_in' => $repeater->ctcss_in,
+				'location_str' => $location_str,
 			);
 			$i++;
 		}

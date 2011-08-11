@@ -172,26 +172,44 @@
 		 */
 		addRepeater : function(repeaterObj)
 		{
+			var outputFreq = parseFloat(repeaterObj['output']).toFixed(3);
+			var inputFreq = parseFloat(repeaterObj['input']).toFixed(3);
+
+			var offsetString = "";
+			if (repeaterObj['offset']) {
+				offsetString = "(" + repeaterObj['offset'] + ")";
+			} else {
+				offsetString = " (input " + inputFreq + ")";
+			}
+
+			var title = outputFreq + offsetString;
+
 			// marker
 			var myLatlng = new google.maps.LatLng(repeaterObj['location'][0]['lat'], repeaterObj['location'][0]['lon']);
 			markerArray[repeaterObj['id']] = new google.maps.Marker({
 				position: myLatlng,
 				map: map,
-				title: "Repeater " + repeaterObj['id']
+				title: title
 			});
 			latLngArray[repeaterObj['id']] = myLatlng;
 			// info box
 			var ctcssString = "";
 			if (repeaterObj['ctcss_in']) {
-				ctcssString = "<br />CTCSS tone: " + repeaterObj['ctcss_in'];
+				//ctcssString = "<br />CTCSS tone: " + repeaterObj['ctcss_in'];
+				ctcssString = " - CTCSS " + repeaterObj['ctcss_in'];
 			}
-			var contentString = "<strong>Repeater " + repeaterObj['id'] + "</strong>" + " (" +
-								repeaterObj['location'][0]['lat'] + ", " + repeaterObj['location'][0]['lon'] + ")<br />" +
-								"Output frequency: " + repeaterObj['output'] + "<br />" +
-								"Input frequency: " + repeaterObj['input'] +
-								ctcssString;
+			var summaryContentString = "<strong>" + title + "</strong> " +
+						" - " + (repeaterObj['location_str'] || "") +
+						ctcssString;
+
+			var detailedContentString = "Output frequency: " + outputFreq + " MHz<br />" +
+								"Input frequency: " + inputFreq + " MHz<br />" +
+								"Offset: " + ((inputFreq - outputFreq) * 1000).toFixed(0) + " kHz<br />" +
+								(repeaterObj['location_str'] ? ("General Location: " + repeaterObj['location_str'] + "<br />") : "") +
+								"Coordinates: (" + repeaterObj['location'][0]['lat'] + ", " + repeaterObj['location'][0]['lon'] + ")<br />" +
+								"CTCSS: " + (repeaterObj['ctcss_in'] || "(None)");
 			var infowindow = new google.maps.InfoWindow({
-				content: contentString
+				content: detailedContentString
 			});
 			// marker click
 			google.maps.event.addListener(markerArray[repeaterObj['id']], 'click', function() {
@@ -220,7 +238,7 @@
 				paths: methods.makeMVCArray(repeaterObj['coverage'])
 			});
 			// add toggle to box
-			$(box).append("<div id=\""+repeaterObj['id']+"\" onclick=\"$().map('repeaterClick', "+repeaterObj['id']+");\" onmouseover=\"$().map('repeaterMouseover', "+repeaterObj['id']+");\" onmouseout=\"$().map('repeaterMouseout', "+repeaterObj['id']+");\">" + contentString + "<br /></div>");
+			$(box).append("<div id=\""+repeaterObj['id']+"\" onclick=\"$().map('repeaterClick', "+repeaterObj['id']+");\" onmouseover=\"$().map('repeaterMouseover', "+repeaterObj['id']+");\" onmouseout=\"$().map('repeaterMouseout', "+repeaterObj['id']+");\">" + summaryContentString + "<br /></div>");
 		},
 		
 		/**

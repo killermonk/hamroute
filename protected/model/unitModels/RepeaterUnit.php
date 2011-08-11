@@ -31,7 +31,9 @@ class RepeaterUnit extends AbstractUnit
 		// Add the rest of our criteria
 		if (!empty($criteria))
 		{
-			$conditions = array();
+			$conditions = array(
+				'open' => '1',
+			);
 			if (isset($criteria['band']))
 				$conditions['band'] = $criteria['band'];
 
