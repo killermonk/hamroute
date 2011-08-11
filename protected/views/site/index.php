@@ -149,7 +149,7 @@ CClientScript::POS_HEAD);
 <div id="trigger">directions</div>
 
 <div style="position:relative; top:0px; left:0px;">
-  <div style="position:relative; left:20px; top:20px; width:700px;">
+  <div style="position:relative; left:20px; top:20px; width:600px;">
     <form id="locationForm" action="" method="GET">
       Start Location: <input type="text" name="fromLocation" id="FromLocation" style="width:180;" />
       Destination: <input type="text" name="toLocation" id="ToLocation" style="width:180;" />
@@ -170,7 +170,7 @@ CClientScript::POS_HEAD);
 
   </div>
 
-  <div id="map_canvas" style="position:relative; top:32px; left:5px; height:320px; width: 475px; background:url('/images/HAM-UI_05.png');">
+  <div id="map_canvas" style="position:relative; top:32px; left:5px; height:320px; width: 500px; background:url('/images/HAM-UI_05.png');">
     map canvas
   </div>
 </div>
