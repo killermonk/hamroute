@@ -183,7 +183,7 @@ CClientScript::POS_HEAD);
     <a href="javascript:DivSwitch('Directions','folder');">Directions</a>
   </div>
   <div id="folder" style="position:relative; top:20px; left:25px; width:520px; height:370px; overflow:auto;">
-    <div id="Repeaters" class="defaultDiv" style="width:500px; height:375px; overflow:auto;"></div>
-    <div id="Directions" style="display:none; width:500px; height:375px; overflow:auto;"></div>
+    <div id="Repeaters" class="defaultDiv"></div>
+    <div id="Directions" style="display:none;"></div>
   </div>
 </div>
