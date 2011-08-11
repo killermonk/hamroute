@@ -175,8 +175,8 @@ CClientScript::POS_HEAD);
   </div>
 </div>
 
-<div style="position:relative; left:20px; top:0px; width:603px; height:434px; background:url('/images/HAM-UI_06.png') no-repeat center;">
-  <div style="position:relative; top:0px; left:0px; font-weight:bold; background: url('/images/LeftBtnOn.png') no-repeat 0px 0px;">
+<div style="position:relative; left:20px; top:10px; width:603px; height:434px; background:url('/images/HAM-UI_06.png') no-repeat center;">
+  <div style="font-weight:bold; background: url('/images/LeftBtnOn.png') no-repeat 10px 0px;">
     <a href="javascript:DivSwitch('Repeaters','folder');">Repeaters</a>
   </div>
   <div style="position:relative; top:0px; left:170px; font-weight:bold; background: url('/images/RightBtnOn.png') no-repeat top left;">
