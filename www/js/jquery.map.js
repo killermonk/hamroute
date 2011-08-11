@@ -132,7 +132,7 @@
 		getRepeaters : function(pathBoxes)
 		{
 			// show loading
-			$(box).append('<div id="loading">Loading</div>');
+			$(box).append('<div id="loading"><img src=\"/images/ajax-loader.gif\" style=\"margin-left:40%;margin-top:20px;\" /></div>');
 			// get repeaters
 			$.ajax({
 				url: '/ajax/getRepeaters',
