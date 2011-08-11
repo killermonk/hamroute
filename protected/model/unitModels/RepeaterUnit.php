@@ -44,6 +44,9 @@ class RepeaterUnit extends AbstractUnit
 		}
 
 		// Find all the repeaters
-		return $model->findAll();
+		$loc_col = $model->getTableAlias(true) . '.geo_location';
+		return $model->findAll(array(
+			'order' => "(X({$loc_col})*360 + Y({$loc_col})) DESC",
+		));
 	}
 }
