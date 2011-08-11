@@ -170,7 +170,7 @@ CClientScript::POS_HEAD);
 
   </div>
 
-  <div id="map_canvas" style="position:relative; top:28px; left:0px; height:386px; width: 450px; background:url('/images/HAM-UI_05.png');">
+  <div id="map_canvas" style="position:relative; top:29px; left:10px; height:386px; width: 475px; background:url('/images/HAM-UI_05.png');">
     map canvas
   </div>
 </div>
