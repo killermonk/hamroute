@@ -37,14 +37,14 @@
       <!-- header -->
 
       <div id="mainmenu">
-        Main Menu
+
       </div>
       <!-- mainmenu -->
 
       <?php echo $content; ?>
 
       <div id="footer">
-        Footer
+
       </div>
       <!-- footer -->
 
