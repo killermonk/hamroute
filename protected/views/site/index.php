@@ -162,7 +162,7 @@ CClientScript::POS_HEAD);
   </div>
 
 
-  <div style="float:left; margin-top: 25px; background:url('/images/HAM-UI_04.png'); width:200px; height:286px;">
+  <div style="float:left; margin-top: 25px; background:url('/images/HAM-UI_04.png'); width:210px; height:286px;">
     <div style="float:left;">
       <h3 style="margin: 15px 15px 5px 0px;">Recent Searches</h3>
       <div id="recentSearches" style="margin: 0px;">Loading...</div>
