@@ -144,8 +144,10 @@ function DivSwitch(obj,newdiv){
 	}
 }
 </script>
-  <div onclick="$().map('toggleUnusedRepeaters');">toggle unused repeaters</div>
-  <div id="trigger">directions</div>
+<div onclick="$().map('toggleBoxes');">toggle route bounding boxes (for demo)</div>
+<div onclick="$().map('toggleUnusedRepeaters');">toggle unused repeaters</div>
+<div id="trigger">directions</div>
+  
 <div style="position:absolute; top:300px; left:0px;">
   <div style="position:absolute; left:20px; top:20px; width:700px;">
     <form id="locationForm" action="" method="GET">

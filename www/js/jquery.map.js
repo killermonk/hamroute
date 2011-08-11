@@ -133,6 +133,22 @@
 			}
 			boxArray = null;
 		},
+		
+		// temp toggle boxes (for demo)
+		toggleBoxes : function() {
+			if (boxArray[0].strokeOpacity != 0) {
+				var boxStrokeOpacity = 0;
+			}
+			else {
+				var boxStrokeOpacity = 1;
+			}
+			for (var i in boxArray) {
+				boxArray[i].setOptions({
+					strokeOpacity: boxStrokeOpacity,
+				});
+			}
+		},
+		
 
 		// add repeater for each object
 		parseRepeaters : function(repeatersObj) {
