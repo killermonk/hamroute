@@ -162,7 +162,7 @@ CClientScript::POS_HEAD);
   </div>
 
 
-  <div style="position:relative; left:20px; top:20px; background:url('/images/HAM-UI_04.png'); width:229px; height:286px;">
+  <div style="float:left; background:url('/images/HAM-UI_04.png'); width:179px; height:286px;">
     <div style="float:right;">
       <h3 style="margin: 15px 15px 5px 0;">Recent Searches</h3>
       <div id="recentSearches">Loading...</div>
@@ -170,7 +170,7 @@ CClientScript::POS_HEAD);
 
   </div>
 
-  <div id="map_canvas" style="position:relative; width:424px; height:286px; left:250px; top:-266px; background:url('/images/HAM-UI_05.png');">
+  <div id="map_canvas" style="float:left; height:286px; background:url('/images/HAM-UI_05.png');">
     map canvas
   </div>
 </div>
