@@ -182,7 +182,7 @@ CClientScript::POS_HEAD);
   <div style="position:relative; top:0px; left:175px; font-weight:bold; background: url('/images/RightBtnOn.png') no-repeat top left;">
     <a href="javascript:DivSwitch('Directions','folder');">Directions</a>
   </div>
-  <div id="folder" style="position:relative; top:10px; left:25px; width:530px; height:370px; overflow:auto;">
+  <div id="folder" style="position:relative; top:10px; left:25px; width:530px; height:355px; overflow:auto;">
     <div id="Repeaters" class="defaultDiv"></div>
     <div id="Directions" style="display:none;"></div>
   </div>
