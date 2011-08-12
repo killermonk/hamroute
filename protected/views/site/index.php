@@ -216,10 +216,8 @@ CClientScript::POS_HEAD);
     if(document.getElementById){
       var elOff = $('#'+offDiv).first();
       var elOn = $('#'+onDiv).first();
-      if (elOff.css('background') == offBG){
         elOff.css('background', 'none');
         elOn.css('background'), onBG);
-      }
     }
   }
 </script>
