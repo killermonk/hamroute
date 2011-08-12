@@ -216,7 +216,7 @@ CClientScript::POS_HEAD);
     if(document.getElementById){
       var elOff = $('#'+offDiv).first();
       var elOn = $('#'+onDiv).first();
-        elOff.css('background', 'none');
+        elOff.css('background', 'transparent');
         elOn.css('background'), onBG);
     }
   }
@@ -257,7 +257,7 @@ CClientScript::POS_HEAD);
 	<div id="RepeatersBtn" style="position:relative; left:0px; top:0px; width:167px; height:28px; padding-left:65px; padding-top:5px; font-weight:bold; background: url(/images/LeftBtnOn.png) no-repeat;">       
 		<a href="javascript:DivSwitch('Repeaters','folder'); javascript:hideBG('DirectionsBtn', 'url(/images/RightBtnOn.png) no-repeat top left', 'RepeatersBtn', 'url(/images/LeftBtnOn.png) no-repeat');">Repeaters</a>
 	</div>
-	<div id="DirectionsBtn" style="position:relative; top:-33px; left:167px; width:126px; height:28px; padding-left:20px; padding-top:5px; font-weight:bold; background: url(/images/RightBtnOn.png) no-repeat top left;">
+	<div id="DirectionsBtn" style="position:relative; top:-33px; left:167px; width:126px; height:28px; padding-left:20px; padding-top:5px; font-weight:bold; background: transparent;">
 		<a href="javascript:DivSwitch('Directions','folder'); javascript:hideBG('RepeatersBtn', 'url(/images/LeftBtnOn.png) no-repeat', 'DirectionsBtn', 'url(/images/RightBtnOn.png) no-repeat top left');">Directions</a>
 	</div>
 	<div id="folder" style="position:relative; top:-10px; left:25px; width:530px; height:355px; overflow:auto;">
