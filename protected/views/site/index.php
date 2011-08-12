@@ -192,21 +192,16 @@ CClientScript::POS_HEAD);
 <script type="text/javascript">
 	function DivSwitch(obj,newdiv){
 		if(document.getElementById){
-			var el = $('#'+obj).first(); //document.getElementById(obj);
-			var ar = $('#'+newdiv+' > div'); //document.getElementById(newdiv).getElementsByTagName('div');
-			var def = $('.defaultDiv').first(); //document.getElementById('defaultDiv');
-			//if(el.style.display == 'none'){
+			var el = $('#'+obj).first();
+			var ar = $('#'+newdiv+' > div');
+			var def = $('.defaultDiv').first();
 			if (el.css('display') == 'none'){
 				for (var i=0; i<ar.length; i++){
-					//ar[i].style.display = 'none';
 					$(ar[i]).css('display', 'none');
 				}
-				//el.style.display = 'block';
 				el.css('display', 'block');
 			}else{
-				//el.style.display = '';
 				el.css('display', '');
-				//def.style.display = 'block';
 				def.css('display', 'block');
 			}
 		}
@@ -226,8 +221,8 @@ CClientScript::POS_HEAD);
 <div style="position:relative; top:0px; left:0px;">
 	<div style="position:relative; left:2px; top:20px; width:700px;">
 		<form id="locationForm" action="" method="GET">
-			Start Location: <input type="text" name="fromLocation" id="FromLocation" style="width:180;" />
-			Destination: <input type="text" name="toLocation" id="ToLocation" style="width:180;" />
+			Start Location: <input type="text" name="fromLocation" id="FromLocation" style="width:140px;" />
+			Destination: <input type="text" name="toLocation" id="ToLocation" style="width:140px;" />
 			Band: <select name="band" id="band">
 				<option value="144">2m</option>
 				<option value="440">70cm</option>

@@ -13,13 +13,15 @@ body
 	margin-bottom: 5px;
 	background: white;
 	border: 1px solid #C9E0ED;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 }
 
 #header
 {
 	margin: 0;
 	padding: 0;
-	border-top: 3px solid #C9E0ED;
 }
 
 #content
