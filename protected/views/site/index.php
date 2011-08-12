@@ -255,10 +255,10 @@ CClientScript::POS_HEAD);
 
 <div style="position:relative; left:0px; top:20px; width:603px; height:434px; background:url(/images/HAM-UI_06.png) no-repeat center;">
 	<div id="RepeatersBtn" style="position:relative; left:0px; top:0px; width:167px; height:28px; padding-left:65px; padding-top:5px; font-weight:bold; background: url(/images/LeftBtnOn.png) no-repeat;">       
-		<a href="javascript:DivSwitch('Repeaters','folder');" onclick="javascript:hideBG('DirectionsBtn', 'url(/images/RightBtnOn.png) no-repeat top left', 'RepeatersBtn', 'url(/images/LeftBtnOn.png) no-repeat');">Repeaters</a>
+		<a href="javascript:DivSwitch('Repeaters','folder'); javascript:hideBG('DirectionsBtn', 'url(/images/RightBtnOn.png) no-repeat top left', 'RepeatersBtn', 'url(/images/LeftBtnOn.png) no-repeat');">Repeaters</a>
 	</div>
 	<div id="DirectionsBtn" style="position:relative; top:-33px; left:167px; width:126px; height:28px; padding-left:20px; padding-top:5px; font-weight:bold; background: url(/images/RightBtnOn.png) no-repeat top left;">
-		<a href="javascript:DivSwitch('Directions','folder');" onclick="javascript:hideBG('RepeatersBtn', 'url(/images/LeftBtnOn.png) no-repeat', 'DirectionsBtn', 'url(/images/RightBtnOn.png) no-repeat top left');">Directions</a>
+		<a href="javascript:DivSwitch('Directions','folder'); javascript:hideBG('RepeatersBtn', 'url(/images/LeftBtnOn.png) no-repeat', 'DirectionsBtn', 'url(/images/RightBtnOn.png) no-repeat top left');">Directions</a>
 	</div>
 	<div id="folder" style="position:relative; top:-10px; left:25px; width:530px; height:355px; overflow:auto;">
 		<div id="Repeaters" class="defaultDiv"></div>
