@@ -144,13 +144,6 @@ Yii::app()->clientScript->registerScript(
 		var extra = [];
 			extra[0] = band;
 		
-		if (console && console.log)
-		{
-			console.log('start locs:', startLocs, 'start', start);
-			console.log('end locs:', endLocs, 'end', end);
-			console.log('band:', band);
-		}
-
 		// move directions to form
 		$('#FromLocation').val(start);
 		$('#ToLocation').val(end);
