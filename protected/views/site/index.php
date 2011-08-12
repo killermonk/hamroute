@@ -217,7 +217,7 @@ CClientScript::POS_HEAD);
       var elOff = $('#'+offDiv).first();
       var elOn = $('#'+onDiv).first();
         elOff.css('background', 'transparent');
-        elOn.css('background'), onBG);
+        elOn.css('background', onBG);
     }
   }
 </script>
