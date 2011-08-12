@@ -204,7 +204,7 @@
 
 			var detailedContentString = "Output frequency: " + outputFreq + " MHz<br />" +
 								"Input frequency: " + inputFreq + " MHz<br />" +
-								"Offset: " + ((inputFreq - outputFreq) * 1000).toFixed(0) + " kHz<br />" +
+								"Offset: " + ((inputFreq - outputFreq) * 100).toFixed(0) + " kHz<br />" +
 								(repeaterObj['location_str'] ? ("General Location: " + repeaterObj['location_str'] + "<br />") : "") +
 								"Coordinates: (" + repeaterObj['location'][0]['lat'] + ", " + repeaterObj['location'][0]['lon'] + ")<br />" +
 								"CTCSS: " + (repeaterObj['ctcss_in'] || "(None)");
