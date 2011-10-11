@@ -8,6 +8,23 @@ Yii::app()->clientScript->registerScriptFile('js/resultBox.js', CClientScript::P
 
 ?>
 
+<!-- TODO move to its own file -->
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#newTabBox a.tab').click(function(){
+			$('#newTabBox a.active').removeClass('active');
+			$(this).addClass('active');
+			
+			$('#newTabBox .tab-content').slideUp();
+			
+			var content = $(this).attr('href');
+			$(content+"_content").slideDown();
+			
+			return false;
+		});
+	});
+</script>
+
 <a href="#" class="myButton" id="trigger">directions</a>
 
 <div id="topBox">
@@ -28,14 +45,24 @@ Yii::app()->clientScript->registerScriptFile('js/resultBox.js', CClientScript::P
 		</div>
 
 		<div class="debugButtons">
-			<a href="#" class="mySubButton" onclick="$().map('toggleBoxes');return false;">toggle bounding boxes</a><br />
-			<a href="#" class="mySubButton" onclick="$().map('toggleUnusedRepeaters');return false;">toggle unused repeaters</a>
+			<a href="" class="mySubButton" onclick="$().map('toggleBoxes');return false;">toggle bounding boxes</a><br />
+			<a href="" class="mySubButton" onclick="$().map('toggleUnusedRepeaters');return false;">toggle unused repeaters</a>
 		</div>
 	</div>
 
 	<div id="map_canvas">
 	map canvas
 	</div>
+</div>
+
+<div id="newTabBox">
+	<ul>
+		<li><a href="#repeaters" id="repeaters_tab" class="tab active">Repeaters</a></li>
+		<li><a href="#directions" id="directions_tab" class="tab">Directions</a></li>
+	</ul>
+	
+	<div id="repeaters_content" class="tab-content">My First Tab Content</div>
+	<div id="directions_content" class="tab-content">My Second Tab Content</div>
 </div>
 
 <div id="bottomBox">

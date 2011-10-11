@@ -106,6 +106,60 @@
 	width: 540px;
 }
 
+#newTabBox {
+	clear:both;
+	margin-top:25px;
+}
+
+#newTabBox ul {
+	margin:0px;
+	padding:0px;
+	margin-left:25px;
+	margin-bottom:4px;
+}
+
+#newTabBox ul li {
+	list-style:none;
+	display:inline;
+}
+
+#newTabBox ul li a {
+	background:#AEC4EF url(/images/tab-off.png) repeat-x top;
+	color:#394A6B;
+	padding:5px 14px 5px 14px;
+	text-decoration:none;
+	font-size:9px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	text-transform:uppercase;
+	border:1px solid #465982;
+	border-bottom:none;
+	border-radius:5px 5px 0px 0px;
+}
+
+#newTabBox ul li a:hover {
+	background-color:#DADFEA;
+	border-color:#607AB2;
+}
+
+#newTabBox ul li a.active {
+	background:#ffffff url(/images/tab-on.png) repeat-x top;
+	color:#44577F;
+	border:1px solid #5176C6;
+	border-bottom:1px solid #ffffff;
+}
+
+#newTabBox .tab-content {
+	background:#ffffff url(/images/gradient-bottom.png) repeat-x bottom;
+	border-radius:5px;
+	border:1px solid #5176C6;
+	padding:10px;
+	height:450px;
+	box-shadow:5px 5px 5px #CCC;
+}
+
+#directions_content {display:none;}
+
 #bottomBox {
 	clear:both;
 	margin-top:25px;
