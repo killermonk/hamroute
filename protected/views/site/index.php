@@ -45,8 +45,8 @@ Yii::app()->clientScript->registerScriptFile('js/resultBox.js', CClientScript::P
 		</div>
 
 		<div class="debugButtons">
-			<a href="" class="mySubButton" onclick="$().map('toggleBoxes');return false;">toggle bounding boxes</a><br />
-			<a href="" class="mySubButton" onclick="$().map('toggleUnusedRepeaters');return false;">toggle unused repeaters</a>
+			<a href="#" class="mySubButton" onclick="$().map('toggleBoxes');return false;">toggle bounding boxes</a><br />
+			<a href="#" class="mySubButton" onclick="$().map('toggleUnusedRepeaters');return false;">toggle unused repeaters</a>
 		</div>
 	</div>
 
