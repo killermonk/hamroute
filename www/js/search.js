@@ -1,8 +1,12 @@
 $(document).ready(function(){
-	$('#map_canvas').map('init', 'Directions');
+	$('#tabBox').tabs();
+	$('#map_canvas').map('init', 'directions_content', function(){
+		$('#tabBox').show().tabs('enableAll').tabs('toggleTab', '#repeaters_tab');
+	});
 
 	var displayRecentSearches = function(searches) {
-		var searchEl = $('#recentSearches');
+		//var searchEl = $('#recentSearches');
+		var searchEl = $('#searches_content');
 
 		if (!searches || !$.isArray(searches) || searches.length == 0)
 			searchEl.html('none');
@@ -17,10 +21,10 @@ $(document).ready(function(){
         
 				main.click(function(){
 					// Change our map
-					$('#FromLocation').val(info.start);
-					$('#ToLocation').val(info.end);
+					$('#fromLocation').val(info.start);
+					$('#toLocation').val(info.end);
 					$('#band').val(info.extra[0]);
-					$('#Repeaters').map('drawRoute', info.start, info.end, info.extra[0]);
+					$('#repeaters_content').map('drawRoute', info.start, info.end, info.extra[0]);
 				});
 			});
 		}
@@ -56,20 +60,20 @@ $(document).ready(function(){
 		}
 	});
 
-	var startLocs = ['ogden', 'logan', 'price', 'roosevelt', 'vernal'];
-	var endLocs = ['orem', 'provo', 'cedar city', 'moab', 'heber', 'tooele'];
+	var startLocs = ['Ogden', 'Logan', 'Price', 'Roosevelt', 'Vernal'];
+	var endLocs = ['Orem', 'Provo', 'Cedar City', 'Moab', 'Heber', 'Tooele'];
 
 	// Set what happens when we click the 'Directions' button
 	$('#trigger').click(function(e){
-		var start = startLocs[ Math.floor(Math.random()*100) % startLocs.length ] + ', utah';
-		var end = endLocs[ Math.floor(Math.random()*100) % endLocs.length ] + ', utah';
+		var start = startLocs[ Math.floor(Math.random()*100) % startLocs.length ] + ', Utah';
+		var end = endLocs[ Math.floor(Math.random()*100) % endLocs.length ] + ', Utah';
 		var band = (Math.random() < .5) ? "144" : "440";
 		var extra = [];
 			extra[0] = band;
 		
 		// move directions to form
-		$('#FromLocation').val(start);
-		$('#ToLocation').val(end);
+		$('#fromLocation').val(start);
+		$('#toLocation').val(end);
 		$('#band').val(band);
 
 		var trigger = $('#trigger');
@@ -80,13 +84,16 @@ $(document).ready(function(){
 		logSearch(start, end, extra);
 
 		// Draw our map
-		$('#Repeaters').map('drawRoute', start, end, band);
+		$('#repeaters_content').map('drawRoute', start, end, band);
+		
+		// Done, do not continue
+		return false;
 	});
 
 	// Capture the form submission and use it
 	$('#locationForm').submit(function(){
-		var start = $('#FromLocation').first().val();
-		var end = $('#ToLocation').first().val();
+		var start = $('#fromLocation').first().val();
+		var end = $('#toLocation').first().val();
 		var band = $('#band').first().val();
 		var extra = [];
 			extra[0] = band;
@@ -95,7 +102,7 @@ $(document).ready(function(){
 		logSearch(start, end, extra);
 
 		// Draw our map
-		$('#Repeaters').map('drawRoute', start, end, band);
+		$('#repeaters_content').map('drawRoute', start, end, band);
 
 		// Always handle with ajax
 		return false;

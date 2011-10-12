@@ -22,9 +22,10 @@
 		/**
 		 * constuctor: create google map and center on utah;
 		 * create listener to detect route changes
-		 * @param string directions: the div id where we send driving directions
+		 * @param directions (string) the div id where we send driving directions
+		 * @param changeCallback (function) the callback to call when the directions get changed
 		 */
-		init : function(directions)
+		init : function(directions, changeCallback)
 		{
 			directionsPanel = directions;
 			var utah = new google.maps.LatLng(40.1135, -111.8535);
@@ -39,12 +40,14 @@
 				methods.clearMap(true);  
 				directionsDisplay.setPanel(document.getElementById(directionsPanel));
 				methods.buildBoxes(directionsDisplay.getDirections().routes[0].overview_path);
+				if (changeCallback)
+					changeCallback.call(directionsDisplay.getDirections());
 			});
 		},
 		
 		/**
 		 * clear google map of all objects;
-		 * @param bool leavePath: if true, remove all objects except the route
+		 * @param leavePath (boolean) if true, remove all objects except the route
 		 */
 		clearMap : function(leavePath) 
 		{
@@ -76,9 +79,9 @@
 
 		 /**
 		 * draw the driving route on the google map;
-		 * @param string start: start location
-		 * @param string end: end location
-		 * @param int band: search for repeaters along given band; assume null as all bands
+		 * @param start (string) start location
+		 * @param end (string) end location
+		 * @param band (int) search for repeaters along given band; assume null as all bands
 		 */
 		drawRoute : function(start, end, band)
 		{
@@ -105,7 +108,7 @@
 		
 		 /**
 		 * build boxes along given path
-		 * @param Array.<LatLng> polyLine: array of LatLngs representing a route
+		 * @param polyLine (Array.<LatLng>) array of LatLngs representing a route
 		 */
 		buildBoxes : function(polyLine)
 		{
@@ -127,7 +130,7 @@
 
 		/**
 		 * send boxes along path to AjaxController
-		 * @param array pathBoxes: array of LatLngs representing boxes along route
+		 * @param pathBoxes array of LatLngs representing boxes along route
 		 */
 		getRepeaters : function(pathBoxes)
 		{
@@ -150,7 +153,7 @@
 
 		/**
 		 * feed json from AjaxController to addRepeater one repeter at a time
-		 * @param object repeatersObj: object containing all repeaters along route
+		 * @param repeatersObj object containing all repeaters along route
 		 */
 		parseRepeaters : function(repeatersObj)
 		{
@@ -168,7 +171,7 @@
 		/**
 		 * draws repeaters, polygons and infowindows
 		 * creates associated events
-		 * @param object repeatersObj: object containing 1 repeater along route
+		 * @param repeaterObj object containing 1 repeater along route
 		 */
 		addRepeater : function(repeaterObj)
 		{
@@ -243,7 +246,7 @@
 		
 		/**
 		 * converts polygon into google readable MVCArray
-		 * @param object coverageObj: object containing polygon paths
+		 * @param coverageObj object containing polygon paths
 		 * @return MVCArray points: google readable polygon array
 		 */
 		makeMVCArray : function(coverageObj)
@@ -257,7 +260,7 @@
 
 		/**
 		 * select / deselect repeater on map or in list
-		 * @param int id: unique identifier for repeater
+		 * @param id (int) unique identifier for repeater
 		 */
 		repeaterClick : function(id)
 		{
@@ -275,7 +278,7 @@
 		
 		/**
 		 * highlight repeater on map or in list
-		 * @param int id: unique identifier for repeater
+		 * @param id (int) unique identifier for repeater
 		 */
 		repeaterMouseover : function(id)
 		{
@@ -285,7 +288,7 @@
 		
 		/**
 		 * unhighlight repeater on map or in list
-		 * @param int id: unique identifier for repeater
+		 * @param id (int) unique identifier for repeater
 		 */
 		repeaterMouseout : function(id)
 		{
@@ -297,8 +300,8 @@
 						
 		/**
 		 * basic repeater visibility: true
-		 * @param int id: unique identifier for repeater
-		 * @param bool doPan: if true, pan map to center on shown repeater
+		 * @param id (int) unique identifier for repeater
+		 * @param doPan (boolean) if true, pan map to center on shown repeater
 		 */
 		showRepeater : function(id, doPan)
 		{
@@ -314,7 +317,7 @@
 
 		/**
 		 * basic repeater visibility: false
-		 * @param int id: unique identifier for repeater
+		 * @param id (int) unique identifier for repeater
 		 */
 		hideRepeater : function(id)
 		{
@@ -348,11 +351,12 @@
 		 */
 		hideUnusedRepeaters : function()
 		{
-			for (var i in markerArray) {
+			var i;
+			for (i in markerArray) {
 				markerArray[i].setVisible(false);
 				$(document.getElementById(i)).addClass("makeInvisible");
 			}
-			for (var i in selectedRepeaters) {
+			for (i in selectedRepeaters) {
 				if (selectedRepeaters[i] == true) {
 					markerArray[i].setVisible(true);
 					$(document.getElementById(i)).removeClass("makeInvisible");
@@ -377,7 +381,7 @@
 
 		/**
 		 * draw route bounding boxes on map / hide them
-		 * @param array boxes: array of rectangles to draw on map
+		 * @param boxes array of rectangles to draw on map
 		 */
 		drawBoxes : function(boxes)
 		{
@@ -414,15 +418,13 @@
 		 */
 		toggleBoxes : function()
 		{
+			var boxStrokeOpacity = 1;
 			if (boxArray[0].strokeOpacity != 0) {
-				var boxStrokeOpacity = 0;
-			}
-			else {
-				var boxStrokeOpacity = 1;
+				boxStrokeOpacity = 0;
 			}
 			for (var i in boxArray) {
 				boxArray[i].setOptions({
-					strokeOpacity: boxStrokeOpacity,
+					strokeOpacity: boxStrokeOpacity
 				});
 			}
 		}

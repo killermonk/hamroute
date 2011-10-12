@@ -72,28 +72,32 @@
 	margin-left: 2px;
 	margin-bottom: 15px;
 }
-#locationForm #FromLocation,
-#locationForm #ToLocation {
+#locationForm #fromLocation,
+#locationForm #toLocation {
 	width: 140px;
 }
 
-#topBox .rightContainer {
+#topBox .leftContainer {
 	float: left;
 	padding-right: 5px;
 }
 
-#topBox .rightContainer .recentSearchBox {
-	background: url('/images/HAM-UI_04.png') no-repeat;
+#topBox .leftContainer .recentSearchBox {
+	border: 1px solid #5176C6;
+	border-radius: 5px;
+	box-shadow:0px 2px 2px #CCC;
 	width: 190px;
 	height: 260px;
 	padding: 10px;
+	overflow: auto;
 }
 
-#topBox .rightContainer .recentSearchBox > h3 {
+#topBox .leftContainer .recentSearchBox > h3 {
 	margin: 0px;
+	margin-bottom: 5px;
 }
 
-#topBox .rightContainer .debugButtons {
+#topBox .leftContainer .debugButtons {
 	padding-top: 10px;
 	/* display: none; */
 }
@@ -103,27 +107,27 @@
 	top: 5px;
 	margin-bottom: 10px;
 	height:360px;
-	width: 540px;
+	width: 100%;/*540px;*/
 }
 
-#newTabBox {
+#tabBox {
 	clear:both;
 	margin-top:25px;
 }
 
-#newTabBox ul {
+#tabBox ul {
 	margin:0px;
 	padding:0px;
 	margin-left:25px;
 	margin-bottom:4px;
 }
 
-#newTabBox ul li {
+#tabBox ul li {
 	list-style:none;
 	display:inline;
 }
 
-#newTabBox ul li a {
+#tabBox ul li a.tab {
 	background:#AEC4EF url(/images/tab-off.png) repeat-x top;
 	color:#394A6B;
 	padding:5px 14px 5px 14px;
@@ -137,66 +141,29 @@
 	border-radius:5px 5px 0px 0px;
 }
 
-#newTabBox ul li a:hover {
+#tabBox ul li a.tab:hover {
 	background-color:#DADFEA;
 	border-color:#607AB2;
 }
 
-#newTabBox ul li a.active {
+#tabBox ul li a.tab.active {
 	background:#fafafa url(/images/tab-on.png) repeat-x top;
 	color:#44577F;
 	border:1px solid #5176C6;
 	border-bottom:1px solid #ffffff;
 }
 
-#newTabBox .tab-content {
+#tabBox ul li a.tab.disabled {
+	display:none;
+}
+
+#tabBox .tab-content {
+	display:none;
 	background:#fafafa url(/images/gradient-bottom.png) repeat-x bottom;
 	border-radius:5px;
+	box-shadow:5px 5px 5px #CCC;
 	border:1px solid #5176C6;
 	padding:10px;
 	height:450px;
-	box-shadow:5px 5px 5px #CCC;
-}
-
-#directions_content {display:none;}
-
-#bottomBox {
-	clear:both;
-	margin-top:25px;
-	width:603px;
-	height:434px;
-	background:url(/images/HAM-UI_06.png) no-repeat center;
-}
-
-#bottomBox #RepeatersBtn {
-	position:relative;
-	left:0px;
-	top:0px;
-	width:167px;
-	height:28px;
-	padding-left:65px;
-	padding-top:5px;
-	font-weight:bold;
-	background: url(/images/LeftBtnOn.png) no-repeat;
-}
-
-#bottomBox #DirectionsBtn {
-	position:relative;
-	top:-33px;
-	left:167px;
-	width:126px;
-	height:28px;
-	padding-left:20px;
-	padding-top:5px;
-	font-weight:bold;
-	background: transparent;
-}
-
-#bottomBox #folder {
-	position:relative;
-	top:-10px;
-	left:25px;
-	width:530px;
-	height:355px;
 	overflow:auto;
 }
