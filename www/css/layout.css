@@ -143,14 +143,14 @@
 }
 
 #newTabBox ul li a.active {
-	background:#ffffff url(/images/tab-on.png) repeat-x top;
+	background:#fafafa url(/images/tab-on.png) repeat-x top;
 	color:#44577F;
 	border:1px solid #5176C6;
 	border-bottom:1px solid #ffffff;
 }
 
 #newTabBox .tab-content {
-	background:#ffffff url(/images/gradient-bottom.png) repeat-x bottom;
+	background:#fafafa url(/images/gradient-bottom.png) repeat-x bottom;
 	border-radius:5px;
 	border:1px solid #5176C6;
 	padding:10px;
