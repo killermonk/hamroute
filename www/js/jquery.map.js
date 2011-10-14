@@ -160,7 +160,7 @@
 			// remove loading
 			$('div').remove('#loading');
 			for (var i in repeatersObj) {
-				methods.addRepeater(repeatersObj[i]);
+				methods.addRepeater(repeatersObj[i], (i%3) == 0);
 			}
 		},
 
@@ -172,8 +172,9 @@
 		 * draws repeaters, polygons and infowindows
 		 * creates associated events
 		 * @param repeaterObj object containing 1 repeater along route
+		 * @param clear boolean if true add class to clear float
 		 */
-		addRepeater : function(repeaterObj)
+		addRepeater : function(repeaterObj, clear)
 		{
 			var outputFreq = parseFloat(repeaterObj['output']).toFixed(3);
 			var inputFreq = parseFloat(repeaterObj['input']).toFixed(3);
@@ -199,7 +200,7 @@
 			var ctcssString = "";
 			if (repeaterObj['ctcss_in']) {
 				//ctcssString = "<br />CTCSS tone: " + repeaterObj['ctcss_in'];
-				ctcssString = " - CTCSS " + repeaterObj['ctcss_in'];
+				ctcssString = "<br/><span class=\"ctcss\">CTCSS " + repeaterObj['ctcss_in'] + "</span>";
 			}
 			var summaryContentString = "<strong>" + title + "</strong> " +
 						" - " + (repeaterObj['location_str'] || "") +
@@ -241,7 +242,16 @@
 				paths: methods.makeMVCArray(repeaterObj['coverage'])
 			});
 			// add toggle to box
-			$(box).append("<div id=\""+repeaterObj['id']+"\" onclick=\"$().map('repeaterClick', "+repeaterObj['id']+");\" onmouseover=\"$().map('repeaterMouseover', "+repeaterObj['id']+");\" onmouseout=\"$().map('repeaterMouseout', "+repeaterObj['id']+");\" class=\"allRepeaters\">" + summaryContentString + "<br /></div>");
+			var rptrCss = 'allRepeaters';
+			if (clear) rptrCss += ' clear';
+
+			var rptrDiv = $('<div/>', {'class':rptrCss, 'id': repeaterObj['id']});
+			rptrDiv.append(summaryContentString)
+				.click(function(){$().map('repeaterClick', repeaterObj['id']);})
+				.mouseover(function(){$().map('repeaterMouseover', repeaterObj['id']);})
+				.mouseout(function(){$().map('repeaterMouseout', repeaterObj['id']);});
+
+			$(box).append(rptrDiv);
 		},
 		
 		/**

@@ -1,6 +1,29 @@
-.selectedRepeater {background-color:#CFDAFF;}
-.allRepeaters {margin:2px;padding:6px;cursor:pointer;}
-.makeInvisible {display:none;}
+.clear {
+	clear:both;
+}
+.selectedRepeater {
+	background-color:#CFDAFF;
+}
+.allRepeaters {
+	margin:2px;
+	padding:6px;
+	cursor:pointer;
+	float:left;
+	width:30%;
+}
+.allRepeaters .ctcss {
+	padding-left:20px;
+}
+.recentSearch {
+	cursor:pointer;
+	margin:6px;
+}
+.recentSearch:hover {
+	text-decoration: underline;
+}
+.makeInvisible {
+	display:none;
+}
 .myButton {
 	-moz-box-shadow:inset 0px 1px 0px 0px #cae3fc;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #cae3fc;

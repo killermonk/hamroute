@@ -7,7 +7,9 @@ Yii::app()->clientScript->registerScriptFile('js/search.js', CClientScript::POS_
 
 ?>
 
+<?php if (YII_DEBUG): ?>
 <a href="#" class="myButton" id="trigger">directions</a>
+<?php endif; ?>
 
 <div id="topBox">
 	<form id="locationForm" action="" method="GET">
@@ -20,10 +22,12 @@ Yii::app()->clientScript->registerScriptFile('js/search.js', CClientScript::POS_
 		<input type="submit" value="Search" />
 	</form>
 
+	<?php if (YII_DEBUG): ?>
 	<div class="debugButtons">
 		<a href="#" class="mySubButton" onclick="$().map('toggleBoxes');return false;">toggle bounding boxes</a>
 		<a href="#" class="mySubButton" onclick="$().map('toggleUnusedRepeaters');return false;">toggle unused repeaters</a>
 	</div>
+	<?php endif; ?>
 
 	<div id="map_canvas">
 	map canvas

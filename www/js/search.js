@@ -5,7 +5,6 @@ $(document).ready(function(){
 	});
 
 	var displayRecentSearches = function(searches) {
-		//var searchEl = $('#recentSearches');
 		var searchEl = $('#searches_content');
 
 		if (!searches || !$.isArray(searches) || searches.length == 0)
