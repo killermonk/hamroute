@@ -152,7 +152,7 @@
 
 #tabBox ul li a.tab {
 	background:#AEC4EF url(/images/tab-off.png) repeat-x top;
-	color:#394A6B;
+	color:#FAFAFA; /*#394A6B;*/
 	padding:5px 14px 5px 14px;
 	text-decoration:none;
 	font-size:9px;
