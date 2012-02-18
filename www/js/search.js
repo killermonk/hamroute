@@ -1,4 +1,16 @@
 $(document).ready(function(){
+	var resizeCanvas = function(){
+		var contentHeight = $('#content').height();
+		if (contentHeight)
+		{
+			var lessTop = $('#actionBar').height() || 45;
+			$('#map_canvas').height(contentHeight - lessTop);
+			$('#infoBox').height(contentHeight - lessTop - 20); // padding adjustment
+		}
+	}
+	$(window).resize(resizeCanvas);
+
+
 	$('#tabBox').tabs();
 	$('#map_canvas').map('init', 'directions_content', function(){
 		$('#tabBox').show().tabs('enableAll').tabs('toggleTab', '#repeaters_tab');

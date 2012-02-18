@@ -29,19 +29,19 @@
 
   <body>
 
-    <div class="container" id="page">
+    <div id="page">
 
       <div id="header">
-        <div id="logo">
-          <?php echo CHtml::encode(Yii::app()->name); ?>
-        </div>
+		  <?php /*
+		  <div id="navbar">
+			  <ul class="navigation">
+				  <li class="authentication"><a href="#">Login</a></li>
+				  <li><a href="<?php echo $this->createUrl('site/index'); ?>">Directions</a></li>
+			  </ul>
+		  </div>
+		   */ ?>
       </div>
       <!-- header -->
-
-      <div id="mainmenu">
-
-      </div>
-      <!-- mainmenu -->
 
       <?php echo $content; ?>
 

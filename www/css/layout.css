@@ -90,14 +90,42 @@
 	top:1px;
 }
 
-#locationForm {
-	margin-top: 20px;
-	margin-left: 2px;
-	margin-bottom: 15px;
+#actionBar {
+	background-color:#EFEFEF;
+	width:100%;
+	height: 45px;
+	border-bottom: 1px solid #CCCCCC;
 }
-#locationForm #fromLocation,
-#locationForm #toLocation {
-	width: 140px;
+
+label[for] {
+	padding: 0 5px;
+}
+#locationForm {
+	line-height:27px;
+	padding-top: 8px;
+	margin-left: 90px;
+}
+#locationForm #searchQuery {
+	width: 200px;
+	height: 19px;
+}
+
+#authMenu {
+	float: right;
+	height: 20px;
+	width: 75px;
+	border: 1px solid #AAA;
+	border-radius: 2px;
+	padding: 5px;
+	margin-right: 15px;
+	margin-top: 5px;
+	background-color: #CCC;
+}
+#authMenu .label {
+	vertical-align: middle;
+	text-align:center;
+	font-weight: bold;
+	color: #555;
 }
 
 #topBox .leftContainer {
@@ -127,15 +155,22 @@
 
 #map_canvas {
 	position: relative;
-	top: 5px;
-	margin-bottom: 10px;
-	height:360px;
-	width: 100%;/*540px;*/
+	height:600px;
+}
+
+#infoBox {
+	width: 330px;
+	height: 580px;
+	position: relative;
+	overflow: auto;
+	float:left;
+	padding: 10px;
 }
 
 #tabBox {
 	clear:both;
-	margin-top:25px;
+	margin-top: 10px;
+	width: 350px;
 }
 
 #tabBox ul {

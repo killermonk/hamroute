@@ -4,18 +4,15 @@ body
 	padding: 0;
 	color: #555;
 	font: normal 10pt Arial,Helvetica,sans-serif;
-	background: #EFEFEF;
+	background: #FFF;/*#EFEFEF;*/
 }
 
 #page
 {
-	margin-top: 5px;
-	margin-bottom: 5px;
 	background: white;
-	border: 1px solid #C9E0ED;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
+	position: absolute;
+	top: 0px; bottom: 0px;
+	left: 0px; right: 0px;
 }
 
 #header
@@ -24,9 +21,48 @@ body
 	padding: 0;
 }
 
+#navbar
+{
+	width: 100%;
+	background-color: #9c0000;
+	color: white;
+	height: 25px;
+}
+#navbar ul.navigation
+{
+	display: block;
+	list-style: none outside none;
+	padding: 0px;
+	margin: 0px;
+	min-width: 100px;
+}
+#navbar ul.navigation li
+{
+	display: inline-block;
+	padding-top: 2px;
+	padding-left: 15px;
+	vertical-align: top;
+	position: relative;
+}
+#navbar ul.navigation li a
+{
+	display: block;
+	text-decoration: none;
+	font-weight: bold;
+	color: white;
+}
+#navbar ul.navigation li.authentication
+{
+	float: right;
+	padding-right: 15px;
+}
+
 #content
 {
-    padding: 20px;
+	position: absolute;
+	width: 100%;
+	top: 0px;
+	bottom: 35px;
 }
 
 #sidebar
@@ -37,10 +73,13 @@ body
 #footer
 {
 	padding: 10px;
-	margin: 10px 20px;
 	font-size: 0.8em;
 	text-align: center;
 	border-top: 1px solid #C9E0ED;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
 }
 
 #logo
@@ -153,79 +192,4 @@ div.search-form
 	padding: 10px;
 	margin: 10px 0;
 	background: #eee;
-}
-
-.portlet
-{
-
-}
-
-.portlet-decoration
-{
-	padding: 3px 8px;
-	background: #B7D6E7;
-	border-left: 5px solid #6FACCF;
-}
-
-.portlet-title
-{
-	font-size: 12px;
-	font-weight: bold;
-	padding: 0;
-	margin: 0;
-	color: #298dcd;
-}
-
-.portlet-content
-{
-	font-size:0.9em;
-	margin: 0 0 15px 0;
-	padding: 5px 8px;
-	background:#EFFDFF;
-}
-
-.portlet-content ul
-{
-	list-style-image:none;
-	list-style-position:outside;
-	list-style-type:none;
-	margin: 0;
-	padding: 0;
-}
-
-.portlet-content li
-{
-	padding: 2px 0 4px 0px;
-}
-
-.operations
-{
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-}
-
-.operations li
-{
-	padding-bottom: 2px;
-}
-
-.operations li a
-{
-	font: bold 12px Arial;
-	color: #0066A4;
-	display: block;
-	padding: 2px 0 2px 8px;
-	line-height: 15px;
-	text-decoration: none;
-}
-
-.operations li a:visited
-{
-	color: #0066A4;
-}
-
-.operations li a:hover
-{
-	background: #80CFFF;
 }
