@@ -238,6 +238,8 @@ class ImportCommand extends CConsoleCommand
 
 			// Don't ask me why every entry doesn't have the right amount of keys, I'm just compensating for it
 			$importData = array_combine( array_slice($headers, 0, count($rptrData)), $rptrData);
+			// Make sure we don't have any invalid characters that will explode in json_encode
+			$importData = array_map(function($item){return preg_replace('/[^\x20-\x7F]*/', '', $item);}, $importData);
 			$rptr->import_data = json_encode($importData);
 
 			// Create our geo fields
