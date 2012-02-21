@@ -157,10 +157,12 @@
 		 */
 		parseRepeaters : function(repeatersObj)
 		{
+			var columnWidth = 2;
+
 			// remove loading
 			$('div').remove('#loading');
 			for (var i in repeatersObj) {
-				methods.addRepeater(repeatersObj[i], (i%3) == 0);
+				methods.addRepeater(repeatersObj[i], (i%columnWidth) == 0);
 			}
 		},
 

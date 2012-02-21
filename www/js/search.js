@@ -1,19 +1,29 @@
 $(document).ready(function(){
+	var resizeTabContent = function(){
+		var tabBoxHeight = $('#tabBox').height();
+		var tabListHeight = $('#tab_list').height();
+		$('#tabBox > .tab-content').height(tabBoxHeight - tabListHeight - 15);
+	};
+
 	var resizeCanvas = function(){
 		var contentHeight = $('#content').height();
 		if (contentHeight)
 		{
 			var lessTop = $('#actionBar').height() || 45;
 			$('#map_canvas').height(contentHeight - lessTop);
-			$('#infoBox').height(contentHeight - lessTop - 20); // padding adjustment
+			$('#tabBox').height(contentHeight - lessTop - 20); // padding adjustment
+
+			resizeTabContent();
 		}
-	}
+	};
 	$(window).resize(resizeCanvas);
+	resizeCanvas();
 
 
 	$('#tabBox').tabs();
 	$('#map_canvas').map('init', 'directions_content', function(){
 		$('#tabBox').show().tabs('enableAll').tabs('toggleTab', '#repeaters_tab');
+		resizeTabContent();
 	});
 
 	var displayRecentSearches = function(searches) {
@@ -32,8 +42,8 @@ $(document).ready(function(){
         
 				main.click(function(){
 					// Change our map
-					$('#fromLocation').val(info.start);
-					$('#toLocation').val(info.end);
+					var query = info.start + ' to ' + info.end;
+					$('#searchQuery').val(query);
 					$('#band').val(info.extra[0]);
 					$('#repeaters_content').map('drawRoute', info.start, info.end, info.extra[0]);
 				});

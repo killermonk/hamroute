@@ -23,8 +23,8 @@ Yii::app()->clientScript->registerScriptFile('/js/search.js', CClientScript::POS
 	</form>
 </div>
 
-<div id="infoBox">
-	<ul>
+<div id="tabBox">
+	<ul id="tab_list">
 		<li><a href="#" name="searches" id="searches_tab" class="tab active">Recent Searches</a></li>
 		<li><a href="#" name="repeaters" id="repeaters_tab" class="tab disabled">Repeaters</a></li>
 		<li><a href="#" name="directions" id="directions_tab" class="tab disabled">Directions</a></li>
