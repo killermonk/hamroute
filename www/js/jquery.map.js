@@ -33,7 +33,7 @@
 				zoom:6,
 				mapTypeId: google.maps.MapTypeId.ROADMAP,
 				center: utah
-			}
+			};
 			map = new google.maps.Map(document.getElementById(this.attr('id')), myOptions);
 			// directions change
 			google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {  

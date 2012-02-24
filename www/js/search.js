@@ -113,17 +113,29 @@ $(document).ready(function(){
 
 	// Capture the form submission and use it
 	$('#locationForm').submit(function(){
-		var start = $('#fromLocation').first().val();
-		var end = $('#toLocation').first().val();
-		var band = $('#band').first().val();
-		var extra = [];
-			extra[0] = band;
+		var query = $('#searchQuery').first().val();
 
-		// Log the search
-		logSearch(start, end, extra);
+		var searchRegex = new RegExp("^(.*)\\s+to\\s+(.*)", "gi");
+		var searchItems = searchRegex.exec(query);
 
-		// Draw our map
-		$('#repeaters_content').map('drawRoute', start, end, band);
+		if (!searchItems || searchItems.length != 3)
+		{
+			alert("Invalid search query. Enter as follows: Denver, CO to Fresno, California");
+		}
+		else
+		{
+			var start = searchItems[1];
+			var end = searchItems[2];
+			var band = $('#band').first().val();
+			var extra = [];
+				extra[0] = band;
+
+			// Log the search
+			logSearch(start, end, extra);
+
+			// Draw our map
+			$('#repeaters_content').map('drawRoute', start, end, band);
+		}
 
 		// Always handle with ajax
 		return false;
