@@ -111,6 +111,7 @@ label[for] {
 }
 
 #authMenu {
+	display: none;
 	float: right;
 	height: 20px;
 	width: 75px;
